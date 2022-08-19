@@ -7,4 +7,4 @@ A seguir têm dois links com exercícios práticos de programação abertos ao p
 
 - Algoritmos e Estrutura de Dados I: https://www.hackerrank.com/ae22cp-utfpr-pb
 
-Algoritmos e Estrutura de Dados II: https://www.hackerrank.com/ae23cp-utfpr-pb
+- Algoritmos e Estrutura de Dados II: https://www.hackerrank.com/ae23cp-utfpr-pb
