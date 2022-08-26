@@ -49,3 +49,4 @@ Vetor* soma(Vetor* v1, Vetor* v2){
 
     return v3;
 }
+

@@ -94,6 +94,35 @@ VetorD* iniciar_vetorD(int n){
 }
 
 
+// Exemplo de função para geração de vetor com n elementos
+int* vetor(int n){
+    int *p = (int*) malloc(n * sizeof(int));
+
+    return p;
+}
+
+
+int** create_matrix(int l, int c){
+	int i;
+	int** mat; // Uso de ponteiro de ponteiro: tipo de variável que armazena o 
+	           // endereço de outro ponteiro
+	
+	// Um vetor de ponteiros é alocado: vetor com l ponteiros, sendo que cada um
+	// será apontado para um vetor de números inteiros
+	mat = malloc(l * sizeof(int*));
+	
+	for (i = 0; i < l; i++)
+		mat[i] = malloc(sizeof(int) * c); // Um vetor para cada linha da matriz 
+		                                  //é alocado: cada ponteiro recebe um vetor alocado dinamicamente
+	
+	/*
+	Um ponteiro de ponteiro é retornado: ao ser alocado na heap, a matriz continuará existindo após finalizar a
+	função; A matriz só será liberada quando o programa finalizar ou ser dado um comando free(mat).
+	*/
+	return mat;
+}
+
+
 
 int main(){
     int *v1;
@@ -116,9 +145,4 @@ int main(){
 }
 
 
-// Exemplo de função para geração de vetor com n elementos
-int* vetor(int n){
-    int *p = (int*) malloc(n * sizeof(int));
 
-    return p;
-}
