@@ -16,6 +16,85 @@ ponteiro para o endereço base da região alocada
 - void free(void* ptr): devolve ao heap a memória apontada por ptr
 */
 
+
+/* 
+Suponha que desejamos criar uma estrutura que represente um arranjo com capacidade 
+de 100 itens. A ideia seria inicializá-la "vazia" e na medida que seja inserido ou 
+removido um elemento, o campo quantidade seria manipulado.
+
+*/
+typedef struct{
+	int item[100]; // como este campo é um vetor estático, na alocação dinâmica,
+	               // um espaço para 100 itens do tipo int é alocado no momento
+	               // da declaração de uma variável ou alocação de espaço para
+	               // dados do tipo "Vetor"
+	int quantidade;
+}Vetor;
+
+/*
+Exemplo de estrutura para o armazenamento de um arranjo de tamanho n. Como uma 
+ideia seria de que o tamanho do arranjo pode ser alterado, então vamos a 
+estrutura de VetorD, referente ao arranjo dinâmico, onde o seu respectivo tamanho
+poderia ser alterado.
+*/
+typedef struct{
+	int n;
+	int *item; // Como este campo é um ponteiro, um espaço deve ser alocado ou
+	           // um endereço deve atribuído ao "item", tanto na alocação estática 
+	           // quanto na aloção dinâmica.
+}VetorD;
+
+
+/* 
+Função que retorna um ponteiro do tipo Vetor: exemplo de cenário em que
+o uso da função calloc é mais adequada para a alocação dinâmica
+*/
+Vetor* iniciar_vetor(){
+	int i;
+	Vetor* v = (Vetor*) malloc(sizeof(Vetor));
+	
+	// Se fosse usada a função calloc, as inicializações abaixo não seriam 
+	// necessárias, já que a função "zera" a memória
+	v->quantidade = 0;
+
+	for (i = 0; i < 100; i++)
+	      v->item[i] = 0;
+
+	return v;
+}
+
+// Outra versão de função que retorna um ponteiro do tipo Vetor
+/*Vetor* iniciar_vetor(){
+	Vetor* v = (Vetor*) calloc(1, sizeof(Vetor));
+
+	return v;
+}*/
+Vetor* iniciar_vetor_v2(){
+	return (Vetor*) calloc(1, sizeof(Vetor));
+}
+
+
+/* 
+Função para alocar espaço, dinamicamente, para um ponteiro do tipo VetorD.
+
+Nesse exemplo, a função malloc é a mais adequada, já que o espaço alocado
+geralmente seria preenchido logo após a alocação.
+*/
+VetorD* iniciar_vetorD(int n){
+	VetorD* v = (VetorD*) malloc(sizeof(Vetor));
+
+	v->n = n;
+	
+	// Como o campo item é um ponteiro, no momento da alocação de um
+	// ponteiro do tipo VetorD, o campo item será nulo. Nesse caso,
+	// deve ser alocado um espaço para o campo item também.
+	v->item = (int*) malloc(sizeof(int) * n);
+
+	return v;
+}
+
+
+
 int main(){
     int *v1;
     int *v2;
