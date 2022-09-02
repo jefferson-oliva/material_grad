@@ -2,11 +2,20 @@
 #include <stdlib.h>
 #include "lista.h"
 
+// Estrutura para uma unidade da lista estática
+struct ItemL{
+    int chave;
+
+    /*
+    Aqui pode conter outros campos, mas para fins didáticos e agilidade na implementação,
+    nos exemplos foram considerados apenas um campo
+    */
+};
 
 // Estrutura para uma lista estática
 struct Lista{
-    int item[MAX_SIZE]; // A lista pode ser de qualquer tipo. Nesse caso, é uma lista de int, mas também pode ser de float, char, string, etc.
-    int tam; // quantidade de elementos preenchidos na lista
+    ItemL item[MAX_SIZE];
+    int tam; // tamanho da lista
 };
 
 // Função para criar uma lista estática
@@ -37,7 +46,7 @@ int buscar(Lista *l, int chave){
     if (!lista_vazia(l)){
         // Procurar na parte "não vazia" da lista
         for (i = 0; i < l->tam; i++)
-            if (l->item[i] == chave)
+            if (l->item[i].chave == chave)
                 return i;
     }
 
@@ -48,9 +57,14 @@ int buscar(Lista *l, int chave){
 // Um item é inserido no final da lista caso ela não estiver cheia.
 // A função retorna 1 se a operação for bem sucedida ou 0, caso contrário
 int inserir(Lista *l, int chave){
+    ItemL item;
+
     if (!lista_cheia(l)){
+        // atribuição no campo chave do item
+        item.chave = chave;
+
         // O item é adicionado no final da lista
-        l->item[l->tam] = chave;
+        l->item[l->tam] = item;
 
         // Se foi adicionado um elemento, então a lista cresceu
         l->tam++; // l->tam = l->tam + 1; ou l->tam += 1;
@@ -67,11 +81,11 @@ int inserir(Lista *l, int chave){
 // deve existir.
 // A função retorna 1 se a operação for bem sucedida ou 0, caso contrário
 int remover(Lista *l, int chave){
-    int i, p = buscar(l, chave);
+    int i = buscar(l, chave);
 
     // A chave foi encontrada
-    if (p > -1){
-        for (i = p; i < l->tam - 1; i++)
+    if (i > -1){
+        for (i; i < l->tam - 1; i++)
             // Deslocamento de itens da lista para ocupar o espaço do item removido
             // Se o item a ser removido for o último, o comando abaixo não é executado
             l->item[i] = l->item[i + 1];
@@ -92,9 +106,7 @@ void imprimir_lista(Lista *l){
 
     if (!lista_vazia(l)){
         for (i = 0; i < l->tam; i++)
-            printf("%d ", l->item[i]);
-
-        printf("\n");
+            printf("%d\n", l->item[i].chave);
     }
 }
 
@@ -109,4 +121,3 @@ int liberar_lista(Lista *l){
 
     return 0;
 }
-

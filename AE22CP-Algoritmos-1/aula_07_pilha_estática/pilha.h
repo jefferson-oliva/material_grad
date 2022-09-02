@@ -9,14 +9,14 @@ Pilha* criar_pilha();
 // Verificar se a pilha está cheia (stack overflow)
 int pilha_cheia(Pilha *p);
 
-// Verificar se a pilha está vazia (stack overflow)
+// Verificar se a pilha está vazia (stack underflow)
 int pilha_vazia(Pilha *p);
 
 // Inserir um novo item na pilha, caso houver espaço
 int empilhar(Pilha *p, int chave);
 
 // Remover item do topo da pilha, caso essa estrutura não estiver vazia
-int desempilhar (Pilha *p);
+int desempilhar(Pilha *p);
 
 // Imprimir conteúdo da pilha
 void imprimir_pilha(Pilha *p);

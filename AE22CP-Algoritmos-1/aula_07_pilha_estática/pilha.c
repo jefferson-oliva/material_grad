@@ -38,7 +38,7 @@ int pilha_cheia(Pilha *p){
         return 0;
 }
 
-// Verificar se a pilha está vazia (stack overflow)
+// Verificar se a pilha está vazia (stack underflow)
 int pilha_vazia(Pilha *p){
     // Uma solução simples
     // Pilha nula ou com o topo igual a -1 é uma pilha vazia
@@ -77,7 +77,7 @@ int empilhar(Pilha *p, int item){
         return 1; // operação bem sucedida
     }
 
-    return 0; // operação mal sucedida
+    return 0; // opera
 }
 
 // Remover item do topo da pilha, caso essa estrutura não estiver vazia
