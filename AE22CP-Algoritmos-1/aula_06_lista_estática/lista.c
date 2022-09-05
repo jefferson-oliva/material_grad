@@ -48,6 +48,11 @@ int buscar(Lista *l, int chave){
 // Um item é inserido no final da lista caso ela não estiver cheia.
 // A função retorna 1 se a operação for bem sucedida ou 0, caso contrário
 int inserir(Lista *l, int chave){
+    // Se a lista for nula, podemos alocar um espaço para ela, já que
+    // pretendemos fazer uma inserção nela
+    if (l == NULL)
+        l = criar_lista();
+
     if (!lista_cheia(l)){
         // O item é adicionado no final da lista
         l->item[l->tam] = chave;
@@ -105,6 +110,66 @@ int liberar_lista(Lista *l){
         free(l);
 
         return 1;
+    }
+
+    return 0;
+}
+
+
+// Resolução de exercício: concatenação
+// Retorna uma lista resultante da concatenação
+Lista* concatenar(Lista *l1, Lista *l2){
+    Lista *l3 = NULL;
+    int i;
+
+    // Verificar se uma das listas está vazia
+    if (l1 == NULL)
+        l3 = l2;
+    else if (l2 == NULL)
+        l3 = l1;
+    else{
+        l3 = criar_lista();
+
+        // Utilizando a função inserir para incluir elementos das listas,
+        // fornecidas como parâmetros, na lista l3
+        for (i = 0; i <  l1->tam; i++)
+            inserir(l3, l1->item[i]);
+
+        for (i = 0; i <  l2->tam; i++)
+            inserir(l3, l2->item[i]);
+    }
+
+    return l3;
+}
+
+
+// Um item é inserido de forma ordenada lista caso ela não estiver cheia.
+// A função retorna 1 se a operação for bem sucedida ou 0, caso contrário
+int inserir_ordenado(Lista *l, int chave){
+    int i;
+
+    // Se a lista for nula, podemos alocar um espaço para ela, já que
+    // pretendemos fazer uma inserção nela
+    if (l == NULL)
+        l = criar_lista();
+
+    if (!lista_cheia(l)){
+        // Primeiramente, temos que sinalizar que a lista cresceu, já que
+        // a inserção é feita de forma ordenada e precisaremos de fazer
+        // deslocamento de elementos
+        l->tam++;
+
+	// Antes de fazermos a inserção, temos que deslocar elementos até
+	// encontrarmos a posição adequada para o novo item.
+	// Por exemplo, o pior cenário é quando o elemento a ser inserido
+	// é o menor de todos, sendo necessário deslocar tam - 1 itens para
+	// podermos colocar o novo item na posição "0" (zero)
+        for (i = l->tam - 1; (i > 0) && (chave < l->item[i - 1]); i--)
+            l->item[i] = l->item[i - 1];
+
+        l->item[i] = chave;
+
+        return  1;
     }
 
     return 0;

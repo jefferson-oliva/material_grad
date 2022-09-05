@@ -30,3 +30,11 @@ void imprimir_lista(Lista *l);
 // Libera a lista
 // Retorna 1 se a operação for bem-sucedida ou 0, caso contrário
 int liberar_lista(Lista *l);
+
+// Resolução de exercício: concatenação
+// Retorna uma lista resultante da concatenação
+Lista* concatenar(Lista *l1, Lista *l2);
+
+// Um item é inserido de forma ordenada lista caso ela não estiver cheia.
+// A função retorna 1 se a operação for bem sucedida ou 0, caso contrário
+int inserir_ordenado(Lista *l, int chave);
