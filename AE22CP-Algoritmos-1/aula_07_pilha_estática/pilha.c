@@ -77,7 +77,7 @@ int empilhar(Pilha *p, int item){
         return 1; // operação bem sucedida
     }
 
-    return 0; // opera
+    return 0; // operação mal sucedida
 }
 
 // Remover item do topo da pilha, caso essa estrutura não estiver vazia
