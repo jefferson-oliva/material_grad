@@ -92,22 +92,20 @@ int desenfileirar(Fila *f){
     // Para qualquer retorno diferente de 0, a negação será 0
     if (!fila_vazia(f)){
         item = f->item[f->ini];
-
-        // Quando um elemento é desenfileirado, o campo ini deve ser
-        // atualizado. Se a posição ini for menor que a capacidade
-        // máxima da lista menos 1, basta apenas incrementar o campo
-        // ini. Caso contrário, f->ini = 0;
-        if (f->ini < TAM_MAX - 1)
+        f->tam--; // a fila reduz o seu tamanho
+	
+	// Se a fila ficar vazia após a operação de desenfileirar, ini e 
+	// fim passar a ser -1. Caso a fila não ficar vazia, o campo ini 
+	// deve ser ser atualizado. Se a posição ini for menor que a 
+	// capacidade máxima da lista menos 1, basta apenas incrementar o 
+	// campo ini. Caso contrário, f->ini = 0;
+	if (f->tam == 0){
+            f->ini = -1;
+            f->fim = -1;
+        }else if (f->ini < TAM_MAX - 1)
             f->ini++;
         else
             f->ini = 0;
-
-        f->tam--;
-
-        if (f->tam == 0){
-            f->ini = -1;
-            f->fim = -1;
-        }
     }
 
     return item;
