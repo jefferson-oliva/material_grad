@@ -46,7 +46,7 @@ void resolver_labirinto2(int lab[MAX][MAX], int m, int n, movX[], movY[], int li
 			c = ci + movY[i];
 
 			/*O movimento é verificado e caso seja válido, uma solução é gerada*/
-			if ((l >= 0) && (l < m) && (c >= 0) && (c < n) && ((lab[l][c] == -1) || (lab[l][c] > 						lab[li][ci] + 1))){
+			if ((l >= 0) && (l < m) && (c >= 0) && (c < n) && ((lab[l][c] == -1) || (lab[l][c] > lab[li][ci] + 1))){
 				lab[l][c] = lab[li][ci] + 1;
 
 				resolver_labirinto2(lab, m, n, movX, movY, l, c, lf, cf, min);
@@ -70,7 +70,7 @@ void resolver_labirintoBnB(int lab[MAX][MAX], int m, int n, movX[], movY[], int 
 			c = ci + movY[i];
 
 			/*O movimento é verificado e caso seja válido, uma solução é gerada*/
-			if ((l >= 0) && (l < m) && (c >= 0) && (c < n) && ((lab[l][c] == -1) || (lab[l][c] > 						lab[li][ci] + 1))){
+			if ((l >= 0) && (l < m) && (c >= 0) && (c < n) && ((lab[l][c] == -1) || (lab[l][c] > lab[li][ci] + 1))){
 				lab[l][c] = lab[li][ci] + 1;
 
 				// Aqui são definidos os limitantes

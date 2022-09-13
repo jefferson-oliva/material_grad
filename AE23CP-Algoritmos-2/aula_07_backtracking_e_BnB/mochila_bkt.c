@@ -3,37 +3,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-# algoritmo guloso
-int mochila_ag(int c[], int p[], int n, int b){
-    int i, total = 0;
-    
-    for (i = 0; (i < n) && (b >= p[i]); i++){
-        total += c[i];
-        b -= p[i];
-    }
-         
-    return total;
-}
-
-
-# divisão e conquista
-int mochila_dq(int c[], int p[], int *b, int ini, int fim){
-    int meio;
-    
-    if (fim == ini){
-        if ((*b - p[ini] >= 0)){
-            *b -= p[ini];
-            
-            return c[ini];
-        }else
-            return 0;
-    }else{
-        meio = (ini + fim) / 2;
-        
-        return mochila_dq(c, p, b, ini, meio) + mochila_dq(c, p, b, meio + 1, fim);
-    }
-}
-
 
 # força-bruta
 int mochila_fb(int c[], int p[], int n, int b, int i, int max){

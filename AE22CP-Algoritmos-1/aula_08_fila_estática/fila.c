@@ -58,7 +58,7 @@ int enfileirar(Fila *f, int chave){
     if (!fila_cheia(f)){
         // Caso a fila estiver vazia
         if (f->ini < 0)
-            f->ini = 0;
+            f->ini = f->fim = 0;
 
         // Ao enfileirar um item, a posição do último elemento da fila
         // deve se atualizada. Antes da atualização, se a posição fim
