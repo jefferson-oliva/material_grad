@@ -46,7 +46,7 @@ int mochila_bnb(int c[], int p[], int n, int b, int i){
     int c1, c2;
     
     if ((i < n) && (b > 0)){
-        c1 = mochila_bkt(c, p, n, b, i + 1);
+        c1 = mochila_bnb(c, p, n, b, i + 1);
         
         if (b - p[i] >= 0)
             c2 = c[i] + mochila_bnb(c, p, n, b - p[i], i + 1);
