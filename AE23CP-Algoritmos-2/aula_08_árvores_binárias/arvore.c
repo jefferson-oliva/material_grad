@@ -182,7 +182,7 @@ void imprimirPosfix(Node* tree){
 
 // Desalocar todos os nós da árvore
 void liberar_arvore(Node* tree){
-    if (tree != Null){
+    if (tree != NULL){
         liberar_arvore(tree->left);
         liberar_arvore(tree->right);
         free(tree);
