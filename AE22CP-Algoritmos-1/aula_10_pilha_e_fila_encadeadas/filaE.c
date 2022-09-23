@@ -78,7 +78,7 @@ void enfileirar(int key, FilaE* f){
 // Desenfileirar um item da fila
 int desenfileirar(FilaE* f){
     Cell *aux; // Primeiro elemento da fila
-    int item = -INT_MAX; // Valor que está no início da fila
+    int item = INT_MIN; // Valor que está no início da fila
 
     if (!filaE_vazia(f)){
     	// obter o primeiro elemento da fila

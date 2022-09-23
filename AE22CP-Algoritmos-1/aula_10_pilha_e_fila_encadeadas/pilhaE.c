@@ -70,7 +70,7 @@ void empilhar(int key, PilhaE *p){
 // Remover um item do topo da pilha
 int desempilhar(PilhaE *p){
     Cell *aux; // Topo da pilha a ser removido
-    int item = -INT_MAX; // Valor que está no topo
+    int item = INT_MIN; // Valor que está no topo
 
     if (!pilhaE_vazia(p)){
         // obter a célula do topo da pilha
