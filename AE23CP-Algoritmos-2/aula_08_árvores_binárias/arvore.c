@@ -89,16 +89,16 @@ Node* inserir(int item, Node* tree){
 
 
 // remover um nó da árvore
-int remover(int item, Node* tree){
+Node* remover(int item, Node* tree){
 	Node *aux, *auxP, *auxF;
 	
 	if (tree != NULL){
 		// o nó a ser removido é procurado a partir de processo
 		// de busca similar ao método "pesquisar"
 		if (item < tree->item)
-			remover(item, tree->left);
+			tree->left = remover(item, tree->left);
 		else if (item > tree->item)
-			remover(item, tree->right);
+			tree->right = remover(item, tree->right);
 			
 		// Esta parte significa que o item foi encontrado
 		else{
@@ -140,12 +140,10 @@ int remover(int item, Node* tree){
 			}
 			
 			free(aux);
-			
-			return 1;
 		}
 	}
 	
-	return 0;
+	return tree;
 }
 
 
