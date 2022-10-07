@@ -31,6 +31,9 @@ int busca_sequencial3(int x, int v[], int n){
 		return i;
 	else
 		return -1;
+		
+	// ou
+	// return ((i < n) && (v[i] == x)) ? i : -1;
 }
 
 
@@ -38,12 +41,12 @@ int busca_sequencial4(int x, int v[], int n){
 	int i, j;
 
 	for (i = 0, j = n - 1; (i < j && x < v[i])
-            && (j > i && x > v[j]); i++, j--);
+            	&& (j > i && x > v[j]); i++, j--);
 
 	if ((v[i] == x) && (i < n))
 		return i;
     else  if ((v[j] == x) && (j >= 0))
-        return j;
+        	return j;
 	else
 		return -1;
 }
@@ -97,7 +100,6 @@ int transposicao(int x, int v[], int n){
 	return -1;
 }
 
-}
 
 
 int main(){
