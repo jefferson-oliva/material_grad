@@ -1,11 +1,12 @@
 #include <stdio.h>
-#include "arvore.h"
+#include <stdlib.h>
+#include "arvore_AVL.h"
 
-struct Pointer{
+struct Node{
 	int item; // chave
 	int fb; // fator de balanceamento
-	struct Pointer *left; // sub-árvore esquerda
-	struct Pointer *right; // sub-árvore direita
+	struct Node *left; // sub-árvore esquerda
+	struct Node *right; // sub-árvore direita
 };
 
 
@@ -128,10 +129,5 @@ Node* inserir(Node* tree, int value, int *grown){
 
 	return tree;
 }
-
-
-
-
-
 
 
