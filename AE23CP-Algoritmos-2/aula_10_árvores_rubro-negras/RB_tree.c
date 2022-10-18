@@ -23,17 +23,6 @@ NodeVP* criar_AVP(int key){
 }
 
 
-int liberar(NodeVP *tree){
-    if (tree != NULL){
-        free(tree);
-
-        return 1;
-    }
-
-    return 0;
-}
-
-
 NodeVP* pesquisar(NodeVP *tree, int key){
     if (tree != NULL){
         if (key == tree->key)
@@ -49,7 +38,7 @@ NodeVP* pesquisar(NodeVP *tree, int key){
 
 
 
-NodeVP* obter_avo(NodeVP *no){
+static NodeVP* obter_avo(NodeVP *no){
     if ((no != NULL) && (no->father != NULL)){
         return no->father->father;
     }
@@ -58,7 +47,7 @@ NodeVP* obter_avo(NodeVP *no){
 }
 
 
-NodeVP* obter_tio(NodeVP *no){
+static NodeVP* obter_tio(NodeVP *no){
     NodeVP* avo = obter_avo(no);
     NodeVP* aux = NULL;
     
@@ -74,59 +63,67 @@ NodeVP* obter_tio(NodeVP *no){
 }
 
 
-NodeVP* rotacionar_dir(NodeVP *x){
+static NodeVP* rotacionar_dir(NodeVP *x){
     NodeVP *p = x->father; // pai de x
     NodeVP *a = p->father; // avô de x
     
-    p->father = a->father;
+    p->father = a->father; // o nó "p" será "promovido", ou seja, o nó "a" passará
+                           // a ser o filho direito de "p". Nesse caso, temos que
+                           // atualizar o pai de "p", que passará a ser o pai de
+                           // "a" (a->father) mais adiante
     
     if (a->father != NULL){
-        // Se o nó avô tem pai, então a sua decedência também deve ser atualizada.
-    	// Assim, temos que verificar qual sub-árvore do nó bisavô tem a raiz
-    	// igual ao nó avô.
+        // Se o nó "a" tem pai, então a sua decedência também deve ser atualizada.
+    	// Assim, temos que verificar qual sub-árvore do nó bisavô de "x" tem a raiz
+    	// igual ao nó "a".
         if (a->father->left == a)
-            a->father->left = p;
+            a->father->left = p; // o nó "p" será o filho esquerdo do pai de "a"
         else
-            a->father->right = p;
+            a->father->right = p; // o nó "p" será o filho direito do pai de "a"
     }
     
-    a->father = p;
-    a->left = p->right;
-    p->right = a;
+    a->father = p; // o nó "p" passa a ser pai de "a"
+    a->left = p->right; // antes de atualizarmos o descendente direito de "p", temos
+    			 // que garantir que não perderemos a sua respectiva subárvore
+    p->right = a; // atualização do filho direito de "p"
     
-    x = p;
+    x = p; // atualização do nó "x"
     
     return x;
 }
 
 
-NodeVP* rotacionar_esq(NodeVP *x){
+static NodeVP* rotacionar_esq(NodeVP *x){
     NodeVP *p = x->father; // pai de x
     NodeVP * a = p->father; // avô de x
     
-    p->father = a->father;
+    p->father = a->father; // o nó "p" será "promovido", ou seja, o nó "a" passará
+                           // a ser o filho direito de "p". Nesse caso, temos que
+                           // atualizar o pai de "p", que passará a ser o pai de
+                           // "a" (a->father) mais adiante
     
     if (a->father != NULL){
     	// Se o nó avô tem pai, então a sua decedência também deve ser atualizada.
     	// Assim, temos que verificar qual sub-árvore do nó bisavô tem a raiz
     	// igual ao nó avô.
         if (a->father->right == a)
-            a->father->right = p;
+            a->father->right = p; // o nó "p" será o filho direito do pai de "a"
         else
-            a->father->left = p;
+            a->father->left = p; // o nó "p" será o filho esquerdo do pai de "a"
     }
     
-    a->father = p;
-    a->right = p->left;
-    p->left = a;
+    a->father = p; // o nó "p" passa a ser pai de "a"
+    a->right = p->left; // antes de atualizarmos o descendente esquerdo de "p", temos
+    			 // que garantir que não perderemos a sua respectiva subárvore
+    p->left = a; // atualização do filho esquerdo de "p"
 
-    x = p;
+    x = p; // atualização do nó "x"
     
     return x;
 }
 
 
-NodeVP* rotacionar_dir_esq(NodeVP *x){
+static NodeVP* rotacionar_dir_esq(NodeVP *x){
     NodeVP *p = x->father; // pai de x
     NodeVP *a = p->father; // avô de x
     
@@ -144,7 +141,7 @@ NodeVP* rotacionar_dir_esq(NodeVP *x){
 }
 
 
-NodeVP* rotacionar_esq_dir(NodeVP *x){
+static NodeVP* rotacionar_esq_dir(NodeVP *x){
     NodeVP *p = x->father; // pai de x
     NodeVP * a = p->father; // avô de x
     
@@ -162,7 +159,7 @@ NodeVP* rotacionar_esq_dir(NodeVP *x){
 }
 
 
-NodeVP* balancear(NodeVP *x){
+static NodeVP* balancear(NodeVP *x){
     NodeVP *pai, *tio;
 
     if (x->father == NULL){ // caso 1
@@ -182,14 +179,14 @@ NodeVP* balancear(NodeVP *x){
             }else{ // caso 3
                 if (pai->left == x){ // caso 3: rotação à direita
                     if (pai->father->left == pai)
-                        x = rotacionar_dir(x);     // caso 3a
+                        x = rotacionar_dir(x); // caso 3a
                     else
                         x = rotacionar_dir_esq(x); // caso 3c
                 }else{ // caso 3: rotação à esquerda
                     if (pai->father->right == pai)
-                        x = rotacionar_esq(x);       // caso 3b
+                        x = rotacionar_esq(x); // caso 3b
                     else
-                        x = rotacionar_esq_dir(x);        // caso 3d
+                        x = rotacionar_esq_dir(x); // caso 3d
                 }
 
                 x->color = 1;
@@ -225,20 +222,28 @@ NodeVP* inserir(NodeVP *tree, int key){
                 auxF = auxF->right;
         }
 
+	// Nas linhas anteriores, o processo de busca é igual ao da árvore binária de 
+	// busca "convencional". A partir da, nesta função, após o novo nó ser criado, 
+	// o seu pai deve ser atualizado (que deverá ser auxP)
         auxF = criar_AVP(key);
         auxF->father = auxP;
 
+	// Atualizar o filho de auxP (a inserção é praticamente igual ao da árvore de 
+	// busca "convencional")
         if (auxF->key < auxP->key)
             auxP->left = auxF;
         else
             auxP->right = auxF;
 
+	// Após a inserção estar completa, a árvore deve ser rebalanceada
         while ((auxF->father != NULL) && (auxF->color == 0) && (auxF->father->color == 0))
             auxF = balancear(auxF);
-            
+        
+        // Procura pelo nó raiz
         while (auxF->father != NULL)
             auxF = auxF->father;
 
+	// atualização do nó raiz da árvore
         tree = auxF;
     }
     
