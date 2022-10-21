@@ -1,44 +1,30 @@
 #include <stdio.h>
 
-// Implementação do selectsort
-void selectsort(int v[], int n){
-	int i, j, p, aux;
-	
-	for (i = n - 1; i >= 1;  i--){
-		p = i;
-	
-		for (j = 0; j < i; j++)
-			if (v[j] > v[p])
-				p = j;
-		
-		aux = v[i];
-		v[i] = v[p];
-		v[p] = aux;
-	}
-}
 
+void quicksort(int x[], int esq, int dir){
+	int i = esq, j = dir, pivo = x[(i + j) / 2], aux;
 
+	do{
+		while (x[i] < pivo)
+			i++;
 
-// Segunda implementação do selectsort
-// Provavelmente a forma ordenação simples mais implementada
-void selectsort2(int v[], int n){
-	int i, j, p, aux;
-	
-	for (i = 0; i < n - 1;  i++){
-		p = i;
-	
-		for (j = i + 1; j < n; j++)
-			if (v[j] < v[p])
-				p = j;
-		
-		if (p != i){
-			aux = v[i];
-			v[i] = v[p];
-			v[p] = aux;
+		while (x[j] > pivo)
+			j--;
+
+		if (i <= j){
+			aux = x[i];
+			x[i] = x[j];
+			x[j] = aux;
+			i++;
+			j--;
 		}
-	}
-}
+	}while (i <= j);
 
+	if (j > esq)
+		quicksort(x, esq, j);
+	if (i < dir)
+		quicksort(x, i, dir);
+}
 
 
 // Implementações relacionadas ao heapsort
