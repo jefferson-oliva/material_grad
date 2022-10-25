@@ -12,14 +12,19 @@ struct NodeB{
 
 
 NodeB* criar(){
-    NodeB *tree = malloc(sizeof(NodeB));
+    /*NodeB *tree = (NodeB *) malloc(sizeof(NodeB));
     int i;
 
     tree->eh_no_folha = 1;
     tree->nro_chaves = 0;
 
     for (i = 0; i < N; i++)
-        tree->filhos[i] = NULL;
+        tree->filhos[i] = NULL;*/
+        
+    NodeB *tree = (NodeB *) calloc(sizeof(NodeB));
+    int i;
+
+    tree->eh_no_folha = 1;
 
     return tree;
 }
