@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 
 void quicksort(int x[], int esq, int dir){
 	int i = esq, j = dir, pivo = x[(i + j) / 2], aux;
