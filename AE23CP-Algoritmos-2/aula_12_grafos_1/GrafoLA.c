@@ -3,6 +3,9 @@
 #include "lista.h"
 #include "GrafoLA.h"
 
+/*
+Na implementação deste código, é considerado que o grafo lido sempre será não direcionado
+*/
 
 struct GrafoLA{
    int V; // número de vértices

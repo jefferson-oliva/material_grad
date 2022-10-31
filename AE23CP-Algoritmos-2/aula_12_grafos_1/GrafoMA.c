@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "GrafoMA.h"
 
+/*
+Na implementação deste código, é considerado que o grafo lido sempre será não direcionado
+*/
+
 struct GrafoMA{
    int V; // número de vértices
    int A; // número de arestas
