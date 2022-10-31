@@ -14,6 +14,6 @@ int remover_na_lista(int key, Lista *l);
 
 void inserir_na_lista(int key, Lista *l);
 
-void imprimir(Lista *l);
+void imprimir_lista(Lista *l);
 
 int liberar_lista(Lista *l);

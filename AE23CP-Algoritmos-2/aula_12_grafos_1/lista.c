@@ -122,17 +122,20 @@ int remover_na_lista(int key, Lista *l){
 }
 
 
-void imprimir(Lista *l){
+void imprimir_lista(Lista *l){
     Cell *aux;
 
     if (!lista_vazia(l)){
         aux = l->head;
 
         while (aux != NULL){
-            printf("%d\n", aux->key);
+            printf("%d", aux->key);
 
             aux = aux->next;
         }
+
+
+        printf("\n");
     }
 }
 

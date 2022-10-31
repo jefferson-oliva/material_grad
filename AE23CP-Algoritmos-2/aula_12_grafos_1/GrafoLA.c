@@ -37,7 +37,7 @@ GrafoLA* iniciar_grafoLA(int v){
 
 
 int aresta_existeLA(GrafoLA* G, int v1, int v2){
-    if ((G!= NULL) && (G->adj[v1]->head != NULL))
+    if (G!= NULL)
         return procurar(v2, G->adj[v1]);
 
     return 0;
@@ -65,19 +65,10 @@ void remover_arestaLA(GrafoLA* G, int v1, int v2){
 
 void imprimir_arestasLA(GrafoLA* G){
     int i;
-    Cell *aux;
 
     if (G != NULL)
-        for (i = 0; i < G->V; i++){
-            aux = G->adj[i]->head;
-
-            while (aux != NULL){
-                printf("(%d, %d)\n", i, aux->key);
-
-                aux = aux->next;
-            }
-
-        }
+        for (i = 0; i < G->V; i++)
+            imprimir_lista(G->adj[i]);
 }
 
 
