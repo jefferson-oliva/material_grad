@@ -1,5 +1,5 @@
 # material_grad
-Material para as disciplinas de graduação da UTFPR-PB
+Material para as disciplinas de graduação da UTFPR-PB. Ainda são necessárias várias melhorias no conteúdo, mas assim que for possível, cada material dever ser atualizado.
 
 Atualmente, esses materiais são dedicados ao curso de Engenharia de Computação.
 
