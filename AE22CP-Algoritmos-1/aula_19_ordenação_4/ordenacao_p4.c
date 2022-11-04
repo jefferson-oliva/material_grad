@@ -3,49 +3,26 @@
 #include <string.h>
 #include <limits.h>
 
+// Exemplo de algoritmo de ordenação linear
+void counting_sort(int *A, int *B, int n, int k){
+    int i, j, C[k + 1];
 
-// Implementações relacionadas ao mergesort
-//************************************************
-void merge(int v[], int esq, int meio, int dir){
-    int i, j, k;
-    int n1 = meio - esq + 1;
-    int n2 = dir - meio;
-    int L[n1 + 1];
-    int R[n2 + 1];
+    for (i = 0; i <= k; i++)
+        C[i] = 0;
 
-    for (i = 0; i < n1; i++)
-        L[i] = v[esq + i];
+    for (j = 0; j < n; j++)
+        C[A[j]]++;
 
-    for (j = 0; j < n2; j++)
-        R[j] = v[meio + j + 1];
+    // Para cada i = {0, 1, ..., k}, aqui é determinado
+    // quantos elementos são menores ou iguais a "i"
+    for (i = 0; i <= k; i++)
+        C[i] += C[i - 1];
 
-    L[n1] = INT_MAX;
-    R[n2] = INT_MAX;
-
-    i = 0;
-    j = 0;
-
-    for (k = esq; k <= dir; k++)
-        if (L[i] <= R[j]){
-            v[k] = L[i];
-            i++;
-        }else{
-            v[k] = R[j];
-            j++;
-        }
-}
-
-void mergesort(int v[], int esq, int dir){
-    int meio;
-
-    if (esq < dir){
-        meio = (esq + dir) / 2;
-        mergesort(v, esq, meio);
-        mergesort(v, meio + 1, dir);
-        merge(v, esq, meio, dir);
+    for (j = n - 1; j >= 0; j--){
+        B[C[A[j]]] = A[j];
+        C[A[j]]--;
     }
 }
-//************************************************
 
 
 //Ordenação de strings
