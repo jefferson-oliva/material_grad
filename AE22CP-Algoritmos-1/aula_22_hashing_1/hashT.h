@@ -1,3 +1,5 @@
+// cabeçalho do TAD hashT
+
 typedef struct{
     unsigned int tam;
     int *buckets;

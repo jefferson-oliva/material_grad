@@ -5,7 +5,7 @@
 /**
 Valores possíveis para cada bucket da tabela hash
 -1: bucket vazio
-0: a chave foi removida
+0: a chave foi removida (isso será aplicado no material) da próxima aula
 valor maior que 0: há uma chave no bucket
 */
 
@@ -40,7 +40,10 @@ int buscar(int key, HashT *t){
     return -1;
 }
 
-
+/*
+Caso caso o resultado da função hash for uma posição onde o 
+valor é igual a "-1", atribuir o vakor key na tal posição
+*/
 int inserir(int key, HashT *t){
     int x;
 
@@ -58,6 +61,7 @@ int inserir(int key, HashT *t){
 }
 
 
+// Ao encontrar a chave, colocar o valor -1
 int remover(int key, HashT *t){
     int x;
 
@@ -75,6 +79,12 @@ int remover(int key, HashT *t){
 }
 
 
+/*
+Na disciplina de "Algoritmos e Estrutura de Dados I", a 
+função de impressão de tabela hash tem a finalidade
+de ser utilizada nos exercícios de implementação sobre
+hashing
+*/
 void imprimir(HashT *t){
     int i;
     if (t != NULL){
