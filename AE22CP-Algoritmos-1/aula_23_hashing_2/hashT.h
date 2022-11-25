@@ -1,3 +1,8 @@
+/*
+Neste TAD, foram aproveitadas as implementações da aula anterior.
+*/
+
+
 typedef struct{
     unsigned int tam;
     int *buckets;

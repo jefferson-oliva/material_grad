@@ -5,8 +5,8 @@
 /**
 Valores possíveis para cada bucket da tabela hash
 -1: bucket vazio
-0: a chave foi removida
-valor maior que 0: há uma chave no bucket
+0: bucket vazio, mas já houve uma chave, a qual foi removida
+> 0: há uma chave no bucket
 */
 
 HashT *criar(unsigned int tam){
