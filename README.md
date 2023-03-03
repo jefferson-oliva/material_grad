@@ -1,5 +1,5 @@
 # material_grad
-Material para as disciplinas de graduação da UTFPR-PB. Ainda são necessárias várias melhorias no conteúdo, mas assim que for possível, cada material dever ser atualizado.
+Material para as disciplinas de graduação da Universidade Tecnológica Federal do Paraná (UTFPR), Campus Pato Branco. Ainda são necessárias várias melhorias no conteúdo, mas assim que for possível, cada material dever ser atualizado.
 
 Atualmente, esses materiais são dedicados ao curso de Engenharia de Computação.
 
