@@ -6,7 +6,7 @@
 
 void param_esfera(float r, float *area, float *volume){
     *area = 4.0 * pi * pow(r, 2);
-    *volume = (3.0 / 4.0) * pi * pow(r, 3);
+    *volume = (4.0 / 3.0) * pi * pow(r, 3);
 }
 
 int main() {
