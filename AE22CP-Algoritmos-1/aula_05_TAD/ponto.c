@@ -18,6 +18,34 @@ Ponto* cria_ponto(float x, float y){
     return p;
 }
 
+// Retornar o valor do campo X de um ponto
+float get_x(ponto *p){
+    if (p != NULL)
+        return p->x;
+
+    return 999999.999999;
+}
+
+//Retornar o valor do campo Y de um ponto
+float get_y(ponto *p){
+    if (p != NULL)
+        return p->y;
+
+    return 999999.999999;
+}
+
+// Alterar os os dados de um ponto
+int alterar(ponto *p, float x, float y){
+    if (p != NULL){
+        p->x = x;
+        p->y = y;
+
+        return 1;
+    }
+
+    return 0;
+}
+
 
 // Imprimir conteúdo de Ponto*
 void imprime_ponto(Ponto * p){

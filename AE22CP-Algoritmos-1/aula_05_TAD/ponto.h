@@ -15,6 +15,15 @@ Ponto * cria_ponto(float x, float y);
 // Imprimir conteúdo de Ponto*
 void imprime_ponto(Ponto *p);
 
+// Retornar o valor do campo X de um ponto
+float get_x(ponto *p);
+
+// Retornar o valor do campo Y de um ponto
+float get_y(ponto *p);
+
+// Alterar os os dados de um ponto
+int alterar(ponto *p, float x, float y);
+
 // Calcular a distância Euclidiana entre dois pontos
 float distancia(Ponto *p1, Ponto *p2);
 
