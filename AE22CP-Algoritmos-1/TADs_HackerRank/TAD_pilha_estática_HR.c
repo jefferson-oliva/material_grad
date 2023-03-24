@@ -26,7 +26,7 @@ Pilha* criar_pilha(){
 int pilha_cheia(Pilha *p){
     if (p == NULL)
         return -1;
-    else if (p->topo == (TAM_MAX - 1))
+    else if (p->topo >= (TAM_MAX - 1))
         return 1;
     else
         return 0;
@@ -36,7 +36,7 @@ int pilha_cheia(Pilha *p){
 int pilha_vazia(Pilha *p){
     if (p == NULL)
         return -1;
-    else if (p->topo == -1)
+    else if (p->topo < 0)
         return 1;
     else
         return 0;
@@ -95,4 +95,11 @@ int obter_posicao_topo(Pilha *p){
         return p->topo;
     else
         return -1;
+}
+
+int acessar_valor_topo(Pilha *p){
+    if (!pilha_vazia(p))
+        return p->item[p->topo];
+    else
+        return INT_MIN;
 }

@@ -26,3 +26,6 @@ void liberar_pilha(Pilha *p);
 
 // Obter a posição da pilha em que está o topo
 int obter_posicao_topo(Pilha *p);
+
+// Retorna o valor que está no topo. Caso a pilha estiver vazia, será retornado INT_MIN.
+int acessar_valor_topo(Pilha *p);
