@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 #define MAX 100
 
@@ -18,7 +19,7 @@ int fib(int n){
 
 // Sequência de Fibonacci por programação dinâmica
 int fibPD(int n){
-    if (f[n] < INT_MAX)
+    if (f[n] > -1)
         return f[n];
     else if (n == 0)
         return f[n] = 0;
@@ -29,6 +30,43 @@ int fibPD(int n){
 }
 
 
+// Sequência de Fibonacci por programação dinâmica (outra versão)
+int fibPD2(int n){
+    int i, f[n + 1];
+    
+    f[0] = 0;
+    f[1] = 1;
+    
+    for (i = 2; i <= n; i++)
+        f[i] = f[i - 1] + f[i - 2];
+        
+    return f[n];
+}
+
+
+// Sequência de Fibonacci com otimização de espaço (não usa um arranjo)
+int fibIT(int n){
+    int i, f1, f2, fN;
+    
+    if (n <= 0)
+        return 0;
+    else{
+        f1 = 0; // fib(N - 2)
+        f2 = 1; // fib(N - 1)
+        fN = 1; // fib(N)
+        
+        for (i = 2; i <= n; i++){
+            fN = f1 + f2;
+            f1 = f2;
+            f2 = fN;
+        }
+        
+        return fN;
+    }
+}
+
+
+// Esta função já foi vista em Algoritmos e Estrutura de Dados I
 int** create_matrix(int l, int c){
     int i = 0;
     int** mat = (int**) malloc(sizeof(int*) * l);
