@@ -3,7 +3,7 @@
 #define MAX 10
 
 // Solução do problema do labirinto por backtracking
-int resolver_labirinto(int lab[MAX][MAX], int m, int n, movX[], movY[], int li, int ci, int lf, int cf){
+int resolver_labirinto(int lab[MAX][MAX], int m, int n, int movX[], int movY[], int li, int ci, int lf, int cf){
 	/*
 	l, c: posição de um passo no labirinto
 	*/
@@ -33,7 +33,7 @@ int resolver_labirinto(int lab[MAX][MAX], int m, int n, movX[], movY[], int li, 
 
 // Outra solução do problema do labirinto por backtracking
 // Neste caso, a solução ótima deve ser encontrada
-void resolver_labirinto2(int lab[MAX][MAX], int m, int n, movX[], movY[], int li, int ci, int lf, int cf, int *min){
+void resolver_labirinto2(int lab[MAX][MAX], int m, int n, int movX[], int movY[], int li, int ci, int lf, int cf, int *min){
 	int l, c, i;
 
 	if ((li == lf) && (ci == cf)){
@@ -57,7 +57,7 @@ void resolver_labirinto2(int lab[MAX][MAX], int m, int n, movX[], movY[], int li
 
 
 // Outra solução do problema do labirinto por branch-and-bound
-void resolver_labirintoBnB(int lab[MAX][MAX], int m, int n, movX[], movY[], int li, int ci, int lf, int cf, int *min){
+void resolver_labirintoBnB(int lab[MAX][MAX], int m, int n, int movX[], int movY[], int li, int ci, int lf, int cf, int *min){
 	int l, c, i;
 
 	if ((li == lf) && (ci == cf)){

@@ -127,7 +127,7 @@ Lista* concatenar(Lista *l1, Lista *l2){
         l3 = l2;
     else if (l2 == NULL)
         l3 = l1;
-    else{
+    else if (l1->tam + l2->tam <= MAX_SIZE){
         l3 = criar_lista();
 
         // Utilizando a função inserir para incluir elementos das listas,
