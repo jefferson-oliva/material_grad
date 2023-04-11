@@ -3,6 +3,8 @@
 #include <limits.h>
 #include "fila.h"
 
+/*TAD para a implementação de uma fila circular*/
+
 struct Fila{
 	int item[TAM_MAX];
 	int ini; // posição do primeiro item
@@ -59,12 +61,11 @@ int enfileirar(Fila *f, int chave){
         // Caso a fila estiver vazia
         if (f->ini < 0)
             f->ini = f->fim = 0;
-
         // Ao enfileirar um item, a posição do último elemento da fila
         // deve se atualizada. Antes da atualização, se a posição fim
         // for menor que a capacidade máxima da lista menos 1, basta
         // apenas incrementar o campo fim. Caso contrário, f->fim = 0;
-        if (f->fim < TAM_MAX - 1)
+        else if (f->fim < TAM_MAX - 1)
             f->fim++;
         else
             f->fim = 0;
@@ -110,6 +111,24 @@ int desenfileirar(Fila *f){
 
     return item;
 }
+
+
+// verifica o item que está no início fila
+int verificar_inicio(Fila *f){
+    if (!fila_vazia(f))
+        return f->item[f->ini];
+    else
+        return INT_MIN;
+}
+
+// verifica o item que está no fim fila
+int verificar_fim(Fila *f){
+    if (!fila_vazia(f))
+        return f->item[f->fim];
+    else
+        return INT_MIN;
+}
+
 
 // Imprimir conteúdo da fila
 void imprimir_fila(Fila *f){
