@@ -1,38 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "listaE.h"
+#include "ListaDE.h"
 
+/**
+AVISO: o código não foi testado
+*/
 
 // Estrutura para representar células
-struct Cell{
+struct CellDE{
     int item; // Pode ser uma struct, union, ou qualquer tipo de dados.
               // Para possibilitar o reuso dessa célula para qualquer
               // tipo de informação, recomendo o uso de ponteiro
               // genérico. Exemplo: void* item;
-    Cell *next;
+    CellDE *previous, *next;
 };
 
 
-// Estrutura para representar listas encadeadas
-struct ListaE{
-    Cell *head; // Ponteiro para o primeiro elemento da lista
+// Estrutura para representar listas duplamente encadeadas
+struct ListaDE{
+    CellDE *head; // Ponteiro para o primeiro elemento da lista
 };
 
 
 // Cria uma nova célula
-Cell* criar_celula(int key){
-    Cell *c = (Cell*) malloc(sizeof(Cell));
+CellDE* criar_celula(int key){
+    CellDE *c = (CellDE*) malloc(sizeof(CellDE));
     c->item = key;
 
-    c->next = NULL;
+    c->previous = c->next = NULL;
 
     return c;
 }
 
 
 // Função para criar uma lista encadeada
-ListaE* criar_listaE(){
-    ListaE* l = (ListaE*) malloc(sizeof(ListaE));
+ListaDE* criar_ListaDE(){
+    ListaDE* l = (ListaDE*) malloc(sizeof(ListaDE));
 
     l->head = NULL;
 
@@ -41,14 +44,14 @@ ListaE* criar_listaE(){
 
 
 // Retorna 1 se a lista está vazia ou 0, caso contrário
-int listaE_vazia(ListaE *l){
+int ListaDE_vazia(ListaDE *l){
     return (l == NULL) || (l->head == NULL);
 }
 
 
 // Verifica se um item existe na lista
-int procurar(int key, ListaE *l){
-    Cell *aux; // Para percorrer a lista, deve ser utilizada
+int procurar(int key, ListaDE *l){
+    CellDE *aux; // Para percorrer a lista, deve ser utilizada
     	       // uma variável auxiliar para não perder a
     	       // cabeça da lista
 
@@ -71,13 +74,13 @@ int procurar(int key, ListaE *l){
 
 
 // Um item é inserido no início da lista
-void inserir_primeiro(int key, ListaE *l){
-    Cell *aux; // Nova célula
+void inserir_primeiro(int key, ListaDE *l){
+    CellDE *aux; // Nova célula
 
     // Caso a lista encadeada seja nula,
     // alocar um espaço para essa estrutura
     if (l == NULL)
-        l = criar_listaE();
+        l = criar_ListaDE();
 
     // Criar nova célula
     aux = criar_celula(key);
@@ -85,6 +88,7 @@ void inserir_primeiro(int key, ListaE *l){
     // Apontar a nova célula para a cabeça da
     // lista
     aux->next = l->head;
+    l->head->previous = aux;
 
     // Atualizar a cabeça da lista
     l->head = aux;
@@ -92,18 +96,18 @@ void inserir_primeiro(int key, ListaE *l){
 
 
 // Um item é inserido no final da lista
-void inserir_ultimo(int key, ListaE *l){
-    Cell *aux, *nova; // célula auxiliar e nova,
+void inserir_ultimo(int key, ListaDE *l){
+    CellDE *aux, *nova; // célula auxiliar e nova,
                       // respectivamente
 
     // Caso a lista encadeada seja nula,
     // alocar um espaço para essa estrutura
     if (l == NULL)
-        l = criar_listaE();
+        l = criar_ListaDE();
 
     // Se a lista estiver vazia, não faz sentido
     // percorrê-la
-    if (listaE_vazia(l))
+    if (ListaDE_vazia(l))
         inserir_primeiro(key, l);
     else{
         aux = l->head;
@@ -119,27 +123,31 @@ void inserir_ultimo(int key, ListaE *l){
 	// O último elemento da lista aponta para a
 	// nova célula
         aux->next = nova;
+        nova->previous = aux;
     }
 }
 
 
-void inserir_ordenado(int key, ListaE *l){
-    Cell *auxA, *auxP, *nova; // células auxiliares
+void inserir_ordenado(int key, ListaDE *l){
+    CellDE *aux, *nova; // células auxiliares
     
     // Caso a lista encadeada seja nula,
     // alocar um espaço para essa estrutura
     if (l == NULL)
-        l = criar_listaE();
+        l = criar_ListaDE();
 
-    if (listaE_vazia(l))
+    if (ListaDE_vazia(l))
         inserir_primeiro(key, l);
     else{
         nova = criar_celula(key);
 
         // Verificar se a lista está vazia ou se o key é menor
         // que o primeiro elemento.
-        if ((l->head == NULL) || (l->head->item <= key)){
+        if (l->head == NULL){
+            l->head = nova;
+        else if (item < l->head->item)
             nova->next = l->head;
+            l->head->previous = nova;
             l->head = nova;
         }else{
             auxP = auxA = l->head;
@@ -157,56 +165,53 @@ void inserir_ordenado(int key, ListaE *l){
             // o próximo elemento de auxP passará a ser a nova
             // célula
             auxP->next = nova;
+            nova->previous = auxP;
             
             // A nova célula aponta para auxA, que pode ser nula
             // ou ter um valor menor igual em relação à nova chave
             nova->next = auxA;
+            
+            if (auxA != NULL)
+                aux->previous = nova;
         }
     }
 }
 
 
-/* O item procurado e removido da lista caso ela. Para isso,
- a lista não deve estar vazia e o item deve existir.
- A função retorna 1 se a operação for bem sucedida ou 0,
- caso contrário*/
-int remover(int key, ListaE *l){
-    Cell *auxA, *auxP = NULL; // células auxiliares
+/* O item procurado e removido da lista caso for encontrado na mesma.
+ Para isso, a lista não deve estar vazia e o item deve existir.
+ A função retorna 1 se a operação for bem sucedida ou 0, caso 
+ contrário*/
+int remover(int key, ListaDE *l){
+    CellDE *auxA; // células auxiliares
 
-    if (!listaE_vazia(l)){
+    if (!ListaDE_vazia(l)){
         auxA = l->head; // apontar o auxA para a cabeça da lista
 
         // Verificar se o elemento está na cabeça da lista
         if(auxA->item == key){
             // Atualizar a cabeça
             l->head = l->head->next;
+            l->head->previous = NULL;
+            free(aux);
+            
+            return 1;
         }else{
-            // apontar auxP para auxA
-            auxP = auxA;
-
             // Procurar a célula que deve ser removida
-            while((auxA != NULL) && (auxA->item != key)){
-                auxP = auxA; // Guardar o endereço auxA
-
+            while((auxA != NULL) && (auxA->item != key))
                 auxA = auxA->next; // Atualizar auxA
+                
+            if (auxA != NULL){
+                auxA->previous->next = auxA->next;
+                
+                if (auxA->next != NULL)
+                    auxA->next->previous = auxA->previous;
             }
+            
+            free(aux);
+            
+            return 1;
         }
-
-        if (auxA != NULL){
-            // Caso a chave seja encontrada, ou seja, auxA diferente de
-            // nulo, fazer a célula predecessora (auxP) apontar o ponteiro
-            // "next" para o próximo elemento de auxA.
-            // Esta comparação é necessária, pois o elemento a ser removido
-            // pode ser a primeira célula da lista, na qual auxP == NULL
-            if (auxP != NULL)
-            	auxP->next = auxA->next; // funciona mesmo se auxP for igual a auxA
-
-            // Agora, a célula auxA pode ser removida com segurança
-            free(auxA);
-
-            return 1; // Operação bem-sucedida
-        }
-
     }
 
     return 0;
@@ -214,13 +219,13 @@ int remover(int key, ListaE *l){
 
 
 // Imprimir o conteúdo da lista
-void imprimir(ListaE *l){
-    Cell *aux; // Para percorrer a lista, deve ser utilizada
+void imprimir(ListaDE *l){
+    CellDE *aux; // Para percorrer a lista, deve ser utilizada
     	       // uma variável auxiliar para não perder a
     	       // cabeça da lista
 
 
-    if (!listaE_vazia(l)){
+    if (!ListaDE_vazia(l)){
         aux = l->head;
 
         while (aux != NULL){
@@ -235,8 +240,8 @@ void imprimir(ListaE *l){
 
 // Liberar lista
 // Retorna 1 se a operação for bem-sucedida ou 0, caso contrário
-int liberar_LE(ListaE *l){
-    Cell *aux = NULL; // Para percorrer a lista, deve ser utilizada
+int liberar_LE(ListaDE *l){
+    CellDE *aux = NULL; // Para percorrer a lista, deve ser utilizada
     	       // uma variável auxiliar para não perder a
     	       // cabeça da lista
 
@@ -262,11 +267,11 @@ int liberar_LE(ListaE *l){
 
 
 // Obter o tamanho de uma lista encadeada
-int tamanho_LE(ListaE *l){
-    Cell *aux;
+int tamanho_LE(ListaDE *l){
+    CellDE *aux;
     int tam = 0;
 
-     if (!listaE_vazia(l)){
+     if (!ListaDE_vazia(l)){
         aux = l->head;
 
         while(aux != NULL){

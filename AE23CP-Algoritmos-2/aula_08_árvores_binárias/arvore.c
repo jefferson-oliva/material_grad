@@ -124,16 +124,11 @@ Node* remover(int item, Node* tree){
 					auxF = auxF->left;
 				}
 				
-				// Se ambos nós são iguais, significa que os mesmos
-				// não têm descendentes, ou seja, a sub-árvore direita
-				// do nó que deverá ser removido possui altura 0. Assim,
-				// o laço a seguir não seria executado a seguir se a
-				// afirmação da frase anterior for verdadeira.
-				if (auxP != auxF){
-					auxP->left = auxF->right;
-					auxF->left = aux->left;
-				}
+				// O menor nó da sub-árvore esquerda pode ter descente,
+				// cujo valor é maior
+				auxP->left = auxF->right;
 				
+				auxF->left = aux->left;
 				auxF->right = aux->right;
 				
 				tree = auxF;
