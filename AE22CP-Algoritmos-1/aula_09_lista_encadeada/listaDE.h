@@ -3,7 +3,7 @@ typedef struct CellDE CellDE; // Renomeação da struct CellDE
 typedef struct ListaDE ListaDE; // Renomeação da struct ListaDE
 
 // Cria uma nova célula
-CellDE* criar_celula(int key);
+CellDE* criar_celulaDE(int key);
 
 // Função para criar uma lista encadeada
 ListaDE* criar_ListaDE();

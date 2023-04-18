@@ -146,7 +146,7 @@ void inserir_ordenado(int key, ListaE *l){
 
             // Procurar lugar na lista onde deve ser inserido
             // o nova elemento
-            while((auxA != NULL) && (key < auxA->item)){
+            while((auxA != NULL) && (key > auxA->item)){
                 auxP = auxA; // Guardar o endereço auxA
 
                 auxA = auxA->next; // Atualizar auxA
@@ -206,7 +206,6 @@ int remover(int key, ListaE *l){
 
             return 1; // Operação bem-sucedida
         }
-
     }
 
     return 0;
@@ -218,7 +217,6 @@ void imprimir(ListaE *l){
     Cell *aux; // Para percorrer a lista, deve ser utilizada
     	       // uma variável auxiliar para não perder a
     	       // cabeça da lista
-
 
     if (!listaE_vazia(l)){
         aux = l->head;

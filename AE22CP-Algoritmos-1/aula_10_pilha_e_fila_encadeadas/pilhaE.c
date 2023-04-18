@@ -89,6 +89,15 @@ int desempilhar(PilhaE *p){
     return item;
 }
 
+
+// Retorna o valor que está no topo. Caso a pilha estiver vazia, será retornado INT_MIN.
+int acessar_valor_topo(PilhaE *p){
+    if (!pilhaE_vazia(p))
+        return p->topo->item;
+    else
+        return INT_MIN;
+}
+
 // Imprimir conteúdo da pilha
 void imprimir_pilha(PilhaE *p){
     Cell *aux; // Para percorrer a pilha, deve ser utilizada
@@ -99,10 +108,12 @@ void imprimir_pilha(PilhaE *p){
         aux = p->topo;
 
         while (aux != NULL){
-            printf("%d\n", aux->item);
+            printf("%d ", aux->item);
 
             aux = aux->next;
         }
+        
+        printf("\n");
     }
 }
 

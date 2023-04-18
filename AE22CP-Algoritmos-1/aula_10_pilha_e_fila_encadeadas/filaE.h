@@ -17,6 +17,12 @@ void enfileirar(int key, FilaE* f);
 // Desenfileirar um item da fila
 int desenfileirar(FilaE* f);
 
+// verifica o item que está no início fila
+int verificar_inicio(FilaE *f);
+
+// verifica o item que está no fim fila
+int verificar_fim(FilaE *f);
+
 // Imprimir o conteúdo da fila
 void imprimir_fila(FilaE* f);
 

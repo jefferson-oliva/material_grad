@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListaDE.h"
+#include "listaDE.h"
 
 /**
 AVISO: o código não foi testado
@@ -23,7 +23,7 @@ struct ListaDE{
 
 
 // Cria uma nova célula
-CellDE* criar_celula(int key){
+CellDE* criar_celulaDE(int key){
     CellDE *c = (CellDE*) malloc(sizeof(CellDE));
     c->item = key;
 
@@ -83,7 +83,7 @@ void inserir_primeiro(int key, ListaDE *l){
         l = criar_ListaDE();
 
     // Criar nova célula
-    aux = criar_celula(key);
+    aux = criar_celulaDE(key);
 
     // Apontar a nova célula para a cabeça da
     // lista
@@ -118,7 +118,7 @@ void inserir_ultimo(int key, ListaDE *l){
             aux = aux->next;
 
         // Criar nova célula
-        nova = criar_celula(key);
+        nova = criar_celulaDE(key);
 
 	// O último elemento da lista aponta para a
 	// nova célula
@@ -129,8 +129,8 @@ void inserir_ultimo(int key, ListaDE *l){
 
 
 void inserir_ordenado(int key, ListaDE *l){
-    CellDE *aux, *nova; // células auxiliares
-    
+    CellDE *auxA, *auxP, *nova; // células auxiliares
+
     // Caso a lista encadeada seja nula,
     // alocar um espaço para essa estrutura
     if (l == NULL)
@@ -139,13 +139,13 @@ void inserir_ordenado(int key, ListaDE *l){
     if (ListaDE_vazia(l))
         inserir_primeiro(key, l);
     else{
-        nova = criar_celula(key);
+        nova = criar_celulaDE(key);
 
         // Verificar se a lista está vazia ou se o key é menor
         // que o primeiro elemento.
-        if (l->head == NULL){
+        if (l->head == NULL)
             l->head = nova;
-        else if (item < l->head->item)
+        else if (key < l->head->item){
             nova->next = l->head;
             l->head->previous = nova;
             l->head = nova;
@@ -154,25 +154,25 @@ void inserir_ordenado(int key, ListaDE *l){
 
             // Procurar lugar na lista onde deve ser inserido
             // o nova elemento
-            while((auxA != NULL) && (key < auxA->item)){
+            while((auxA != NULL) && (key > auxA->item)){
                 auxP = auxA; // Guardar o endereço auxA
 
                 auxA = auxA->next; // Atualizar auxA
             }
 
-            // aqui o auxP terá o maior elemento que tem valor 
+            // aqui o auxP terá o maior elemento que tem valor
             // menor em comparação com a nova célula, ou seja,
             // o próximo elemento de auxP passará a ser a nova
             // célula
             auxP->next = nova;
             nova->previous = auxP;
-            
+
             // A nova célula aponta para auxA, que pode ser nula
             // ou ter um valor menor igual em relação à nova chave
             nova->next = auxA;
-            
+
             if (auxA != NULL)
-                aux->previous = nova;
+                auxA->previous = nova;
         }
     }
 }
@@ -193,7 +193,7 @@ int remover(int key, ListaDE *l){
             // Atualizar a cabeça
             l->head = l->head->next;
             l->head->previous = NULL;
-            free(aux);
+            free(auxA);
             
             return 1;
         }else{
@@ -208,7 +208,7 @@ int remover(int key, ListaDE *l){
                     auxA->next->previous = auxA->previous;
             }
             
-            free(aux);
+            free(auxA);
             
             return 1;
         }

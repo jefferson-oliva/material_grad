@@ -17,6 +17,9 @@ void empilhar(int key, PilhaE *p);
 // Remover um item do topo da pilha
 int desempilhar(PilhaE *p);
 
+// Retorna o valor que está no topo. Caso a pilha estiver vazia, será retornado INT_MIN.
+int acessar_valor_topo(PilhaE *p);
+
 // Imprimir conteúdo da pilha
 void imprimir_pilha(PilhaE *p);
 

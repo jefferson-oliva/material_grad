@@ -97,6 +97,23 @@ int desenfileirar(FilaE* f){
 }
 
 
+// verifica o item que está no início fila
+int verificar_inicio(FilaE *f){
+    if (!filaE_vazia(f))
+        return f>inicio->item;
+    else
+        return INT_MIN;
+}
+
+
+// verifica o item que está no fim fila
+int verificar_fim(FilaE *f){
+    if (!filaE_vazia(f))
+        return f->fim->item;
+    else
+        return INT_MIN;
+}
+
 // Imprimir o conteúdo da fila
 void imprimir_fila(FilaE* f){
     Cell *aux; // Para percorrer a fila, deve ser utilizada
@@ -107,9 +124,11 @@ void imprimir_fila(FilaE* f){
         aux = f->inicio;
 
         while (aux != NULL){
-            printf("%d\n", aux->item);
+            printf("%d ", aux->item);
             aux = aux->next;
         }
+        
+        printf("\n");
     }
 }
 
