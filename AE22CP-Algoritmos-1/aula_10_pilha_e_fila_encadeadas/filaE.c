@@ -85,6 +85,9 @@ int desenfileirar(FilaE* f){
         aux = f->inicio;
 
         f->inicio = aux->next;
+        
+        if (f->inicio == NULL)
+        	f->fim = NULL;
 
         // Acessar o conteúdo da célula
         item = aux->item;
@@ -136,7 +139,7 @@ void imprimir_fila(FilaE* f){
 // Desalocar a fila
 int liberar_filaE(FilaE* f){
     if (!filaE_vazia(f)){
-        while (f->inicio != NULL)
+        while (!filaE_vazia(f))
             desenfileirar(f);
 
         free(f);
