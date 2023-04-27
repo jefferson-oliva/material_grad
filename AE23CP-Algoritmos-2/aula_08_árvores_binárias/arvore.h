@@ -12,7 +12,7 @@ int max(Node* tree);
 
 Node* inserir(int item, Node* tree);
 
-int remover(int item, Node* tree);
+Node* remover(int item, Node* tree);
 
 void imprimirInfix(Node* tree);
 
