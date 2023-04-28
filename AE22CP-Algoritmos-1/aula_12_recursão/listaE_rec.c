@@ -13,14 +13,15 @@ struct ListaE{
 };
 
 
-Cell* criar_celula(int key){
+Cell* criar_celula(int item){
     Cell *c = (Cell*) malloc(sizeof(Cell));
 
-    c->item = key;
+    c->item = item;
     c->next = NULL;
 
     return c;
 }
+
 
 ListaE* criar_listaE(){
     ListaE* l = (ListaE*) malloc(sizeof(ListaE));
@@ -30,27 +31,29 @@ ListaE* criar_listaE(){
     return l;
 }
 
+
 int listaE_vazia(ListaE *l){
     return (l == NULL) || (l->head == NULL);
 }
 
-static int procurar_rec(Cell *c, int item){
+
+static int procurar_rec(int item, Cell *c){
     if (c == NULL)
         return 0;
     else if (c->item == item)
         return 1;
     else
-        return procurar_rec(c->next, item);
+        return procurar_rec(item, c->next);
 }
 
 
-int procurar(int key, ListaE *l){
-    return (l != NULL) ? procurar_rec(l->head, key) : 0;
+int procurar(int item, ListaE *l){
+    return (l != NULL) ? procurar_rec(item, l->head) : 0;
 }
 
 
-void inserir_primeiro(int key, ListaE *l){
-    Cell *nova = criar_celula(key);
+void inserir_primeiro(int item, ListaE *l){
+    Cell *nova = criar_celula(item);
 
     if (l == NULL)
         l = criar_listaE();
@@ -61,23 +64,23 @@ void inserir_primeiro(int key, ListaE *l){
 }
 
 
-static void inserir_ultimo_recursivo(Cell *c, int key){
+static void inserir_ultimo_rec(int item, Cell *c){
     Cell *novo;
     if (c->next == NULL){
-        novo = criar_celula(key);
+        novo = criar_celula(item);
         c->next = novo;
     }else
-        inserir_ultimo_recursivo(c->next, key);
+        inserir_ultimo_rec(item, c->next);
 }
 
 
-void inserir_ultimo(int key, ListaE *l){
+void inserir_ultimo(int item, ListaE *l){
     if (listaE_vazia(l))
-        inserir_primeiro(key, l);
+        inserir_primeiro(item, l);
     else
-        inserir_ultimo_recursivo(l->head, key);
-
+        inserir_ultimo_rec(item, l->head);
 }
+
 
 static Cell* inserir_ordenado_rec(Cell *c, int item){
     Cell *novo;
@@ -94,15 +97,16 @@ static Cell* inserir_ordenado_rec(Cell *c, int item){
     return c;
 }
 
-void inserir_ordenado(int key, ListaE *l){
+
+void inserir_ordenado(int item, ListaE *l){
     if (l == NULL)
         l = criar_listaE();
 
-    l->head = inserir_ordenado_rec(l->head, key);
+    l->head = inserir_ordenado_rec(l->head, item);
 }
 
 
-static Cell* remover_rec(Cell *c, int item, int *sucesso){
+static Cell* remover_rec(int item, Cell *c){
     Cell *aux;
 
     if (c != NULL){
@@ -110,23 +114,19 @@ static Cell* remover_rec(Cell *c, int item, int *sucesso){
             aux = c;
             c = c->next;
             free(aux);
-            *sucesso = 1;
         }else
-            c->next = remover_rec(c->next, item, sucesso);
+            c->next = remover_rec(item, c->next);
     }
 
     return c;
 }
 
 
-int remover(int key, ListaE *l){
-    int s = 0;
-
+void remover(int item, ListaE *l){
     if (!listaE_vazia(l))
-        l->head = remover_rec(l->head, key, &s);
-
-    return s;
+        l->head = remover_rec(item, l->head);
 }
+
 
 static void imprimir_rec(Cell *c){
     if (c != NULL){
@@ -135,13 +135,14 @@ static void imprimir_rec(Cell *c){
     }
 }
 
+
 void imprimir(ListaE *l){
     if (!listaE_vazia(l)){
         imprimir_rec(l->head);
         printf("\n");
     }
-    
 }
+
 
 static void imprimir_inverso_rec(Cell *c){
     if (c != NULL){
@@ -149,6 +150,7 @@ static void imprimir_inverso_rec(Cell *c){
         printf("%d ", c->item);
     }
 }
+
 
 void imprimir_inverso(ListaE *l){
     if (!listaE_vazia(l)){
@@ -164,6 +166,7 @@ static void liberar_LE_rec(Cell *c){
         free(c);
     }
 }
+
 
 int liberar_LE(ListaE *l){
     if (l != NULL){
