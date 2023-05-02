@@ -14,10 +14,16 @@ int busca_sequencial(int x, int v[], int n){
 
 int busca_sequencial2(int x, int v[], int n){
 	int i;
+	v[n] = x; // garante que x seja encontrado
 
-	for (i = 0; i < n && x != v[i]; i++);
+	// aqui, um teste a menos é realizado em comparação com
+	// o algoritmo implementado anteriormente
+	for (i = 0; x != v[i]; i++);
 
-	return (i < n) ? i : -1;
+	if (i < n)
+		return i;
+	else
+		return -1;
 }
 
 
@@ -25,27 +31,24 @@ int busca_sequencial2(int x, int v[], int n){
 int busca_sequencial3(int x, int v[], int n){
 	int i;
 
-	for (i = 0; i < n && x < v[i]; i++);
+	for (i = 0; i < n && x > v[i]; i++);
 
 	if ((i < n) && (v[i] == x))
 		return i;
 	else
 		return -1;
-		
-	// ou
-	// return ((i < n) && (v[i] == x)) ? i : -1;
 }
 
 
 int busca_sequencial4(int x, int v[], int n){
 	int i, j;
 
-	for (i = 0, j = n - 1; (i < j && x < v[i])
-            	&& (j > i && x > v[j]); i++, j--);
+	for (i = 0, j = n - 1; (i < j) && (x > v[i])
+            	&& (x < v[j]); i++, j--);
 
-	if ((v[i] == x) && (i < n))
+	if ((i < n) && (v[i] == x))
 		return i;
-    else  if ((v[j] == x) && (j >= 0))
+    	else  if ((j >= 0) && (v[j] == x))
         	return j;
 	else
 		return -1;
