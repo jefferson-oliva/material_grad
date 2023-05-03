@@ -46,9 +46,9 @@ int busca_sequencial4(int x, int v[], int n){
 	for (i = 0, j = n - 1; (i < j) && (x > v[i])
             	&& (x < v[j]); i++, j--);
 
-	if ((i < n) && (v[i] == x))
+	if (v[i] == x)
 		return i;
-    	else  if ((j >= 0) && (v[j] == x))
+    	else  if (v[j] == x)
         	return j;
 	else
 		return -1;
