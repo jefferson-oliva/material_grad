@@ -74,24 +74,26 @@ int procurar(int key, ListaDE *l){
 
 
 // Um item é inserido no início da lista
-void inserir_primeiro(int key, ListaDE *l){
+void inserir_primeiro(int key, ListaDE **l){
     CellDE *aux; // Nova célula
 
     // Caso a lista encadeada seja nula,
     // alocar um espaço para essa estrutura
-    if (l == NULL)
-        l = criar_ListaDE();
+    if (*l == NULL)
+        *l = criar_ListaDE();
 
     // Criar nova célula
     aux = criar_celulaDE(key);
 
     // Apontar a nova célula para a cabeça da
     // lista
-    aux->next = l->head;
-    l->head->previous = aux;
+    aux->next = (*l)->head;
+    
+    if ((*l)->head != NULL)
+    	(*l)->head->previous = aux;
 
     // Atualizar a cabeça da lista
-    l->head = aux;
+    (*l)->head = aux;
 }
 
 
