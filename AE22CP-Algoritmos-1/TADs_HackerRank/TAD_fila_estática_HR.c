@@ -119,3 +119,19 @@ int tamanho_fila(Fila *f){
     else
     	return 0;
 }
+
+
+int verificar_inicio(Fila *f){
+    if (!fila_vazia(f))
+        return f->item[f->ini];
+    else
+        return INT_MIN;
+}
+
+
+int verificar_fim(Fila *f){
+    if (!fila_vazia(f))
+        return f->item[f->fim];
+    else
+        return INT_MIN;
+}
