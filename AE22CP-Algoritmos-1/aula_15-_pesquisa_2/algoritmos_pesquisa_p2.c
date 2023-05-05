@@ -47,15 +47,15 @@ static int busca_in(int x, int v[], int ini, int fim){
 		if (x == v[meio])
 			return meio;
 		else if (x < v[meio])
-			return busca_interpolacao(x, v, ini, meio - 1);
+			return busca_in(x, v, ini, meio - 1);
 		else
-			return busca_interpolacao(x, v, meio + 1, fim);
+			return busca_in(x, v, meio + 1, fim);
 	}else
 		return -1;
 }
 
 
-int busca_interpolacao(int x, int v, int n){
+int busca_interpolacao(int x, int v[], int n){
 	return busca_in(x, v, 0, n - 1);
 }
 
