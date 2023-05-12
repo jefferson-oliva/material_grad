@@ -1,29 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void quicksort(int x[], int esq, int dir){
-	int i = esq, j = dir, pivo = x[(i + j) / 2], aux;
+void troca(int *a, int *b){
+    int aux = *a;
+    *a = *b;
+    *b = aux;
+}
 
-	do{
-		while (x[i] < pivo)
-			i++;
 
-		while (x[j] > pivo)
-			j--;
+void quicksort(int v[], int esq, int dir){
+    int i = esq;
+    int j = dir; 
+    int pivo = v[(i + j) / 2];
 
-		if (i <= j){
-			aux = x[i];
-			x[i] = x[j];
-			x[j] = aux;
-			i++;
-			j--;
-		}
-	}while (i <= j);
+    do{
+        while (v[i] < pivo)
+            i++;
 
-	if (j > esq)
-		quicksort(x, esq, j);
-	if (i < dir)
-		quicksort(x, i, dir);
+        while (v[j] > pivo)
+            j--;
+
+	if (i <= j){
+            troca(&v[i], &v[j]);
+            i++;
+            j--;
+        }
+    }while (i <= j);
+
+    if (j > esq)
+        quicksort(v, esq, j);
+    if (i < dir)
+        quicksort(v, i, dir);
+}
+
+
+// Outra implementação do quicksort
+//*******************************************
+static int particionar(int v[], int esq, int dir){
+    int pivo = v[esq];
+    int i = esq + 1;
+    int j = dir;
+    
+    while (i <= j){
+        while ((v[i] <= pivo) && (i <= dir))
+            i++;
+        
+        while ((v[j] > pivo) && (j >= esq))
+            j--;
+        
+        if (i < j)
+            troca(&v[i], &v[j]);
+    }
+    
+    troca(&v[esq], &v[j]);
+    
+    return j;
+}
+
+void quicksort2(int v[], int esq, int dir){
+    if (esq < dir){
+        int j = particionar(v, esq, dir);
+        quicksort2(v, esq, j - 1);
+        quicksort2(v, j + 1, dir);
+    }
 }
 
 
