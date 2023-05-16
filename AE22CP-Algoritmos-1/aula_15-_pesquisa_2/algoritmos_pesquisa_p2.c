@@ -30,7 +30,7 @@ static int busca_bin(int x, int v[], int ini, int fim){
 }
 
 
-int busca_binaria(int x, int v, int n){
+int busca_binaria(int x, int v[], int n){
 	return busca_bin(x, v, 0, n - 1);
 }
 
