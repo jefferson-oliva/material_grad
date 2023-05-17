@@ -214,7 +214,7 @@ static NodeB * inserir_pagina_nao_cheia(NodeB *tree, int key){
         // atualização da quantidade de chaves.
         tree->nro_chaves++;
 
-    // CASO ITERATIVO
+    // CASO INDUTIVO
     }else{ // Caso a página seja não folha...
         // Se a página analisada estiver cheia, a mesma deve ser dividida previamente. Por mais que a nova 
         // chave não seja inserida nessa página, uma outra chave será promovida.
