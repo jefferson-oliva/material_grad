@@ -72,7 +72,6 @@ void inserir_na_lista(int key, Lista *l){
         if (l->head->key >= key){
            c->next = l->head;
 
-
            l->head = c;
         }else{
             auxA = l->head;
