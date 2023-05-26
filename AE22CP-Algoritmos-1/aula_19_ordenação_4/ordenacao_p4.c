@@ -15,12 +15,15 @@ void counting_sort(int *A, int *B, int n, int k){
 
     // Para cada i = {0, 1, ..., k}, aqui é determinado
     // quantos elementos são menores ou iguais a "i"
-    for (i = 0; i <= k; i++)
+    for (i = 1; i <= k; i++)
+    	// C[i] vai representar a posição em que a chave i deve
+    	// estar localizada
         C[i] += C[i - 1];
 
     for (j = n - 1; j >= 0; j--){
-        B[C[A[j]]] = A[j];
-        C[A[j]]--;
+    	
+        B[C[A[j]] - 1] = A[j];
+        C[A[j]]--; // caso houver chave repetida, ela virá uma posição antes
     }
 }
 
