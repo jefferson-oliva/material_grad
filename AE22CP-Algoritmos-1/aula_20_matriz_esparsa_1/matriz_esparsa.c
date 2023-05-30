@@ -81,6 +81,7 @@ static int validar_pos_matriz(int lin, int col, Spa_Mat* mat){
 }
 
 
+// Se existir elemento na posição [l][c], retorne o valor. Caso contrário, retorne 0 (nulo)
 int buscar_pos(int l, int c, Spa_Mat* mat){
     int i;
     Cell *aux;
@@ -121,7 +122,7 @@ static void trocar_inserir_na_lista(int item, int col, ListaE *l){
         auxA = l->head; // a nova célula deverá ser colocada entre auxP e auxA
         auxP = auxA;
 
-        // Encontrar uma posição adequada para inserção/remoção
+        // Encontrar uma posição adequada para inserção/troca
         while ((auxP != NULL) && (auxP->col < col)){
             auxA = auxP;
             auxP = auxP->next;
@@ -155,7 +156,7 @@ static void remover_na_lista(int col, ListaE *l){
             auxA = l->head;
             auxP = auxA; // Se for feita a remoção, auxP será removida e auxA->next = auxP->next
 
-            // Encontrar uma posição adequada para inserção/remoção
+            // Encontrar uma posição adequada para remoção
             while ((auxP != NULL) && (auxP->col < col)){
                 auxA = auxP;
                 auxP = auxP->next;
