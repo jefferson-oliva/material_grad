@@ -130,20 +130,19 @@ static NodeB * split_pag(NodeB *pai, int posF_cheio){
     // Isso vale também para as páginas não folha (nós internos).
     pag_dir->eh_no_folha = pag_esq->eh_no_folha; 
 
-    //Quantidade de elementos (chaves) maiores que a chave "central".
+    //Atualizar a quantidade de chaves nas páginas.
     pag_dir->nro_chaves = round((N - 1) / 2);
-
+    pag_esq->nro_chaves = (N - 1) / 2;
+    
     // preencher a nova página com (N - 1) / 2 maiores itens da página cheia.
     for (i = 0; i < pag_dir->nro_chaves; i++)
-        pag_dir->chaves[i] = pag_esq->chaves[i + pag_dir->nro_chaves];
+        pag_dir->chaves[i] = pag_esq->chaves[i + pag_esq->nro_chaves];
 
     // se a página esquerda não for nó-folha, a página direita deve herdar os descendentes
     // de suas respectivas chaves.
     if (!pag_esq->eh_no_folha)
         for (i = 0; i < pag_dir->nro_chaves; i++)
-            pag_dir->filhos[i] = pag_esq->filhos[i + pag_dir->nro_chaves];
-
-    pag_esq->nro_chaves = (N - 1) / 2;
+            pag_dir->filhos[i] = pag_esq->filhos[i + pag_esq->nro_chaves];
 
     // A partir daqui, é atualizada a página pai, para que na mesma seja adicionada a chave que 
     // foi promovida. Os descendentes da página pai são deslocados em uma posição para a adição 

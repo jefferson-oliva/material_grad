@@ -2,6 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
+
 #define N 5
 
 typedef struct NodeB NodeB;
@@ -70,10 +71,10 @@ int pesquisaSequencial(int key, NodeB *tree){
     if (tree != NULL){
         for (i = 0; i < tree->nro_chaves && key < tree->chaves[i]; i++);
 
-	if ((i < tree->nro_chaves) && (key == tree->chaves[i]))
-        	return 1;
+    if ((i < tree->nro_chaves) && (key == tree->chaves[i]))
+            return 1;
         else
-        	return pesquisaSequencial(key, tree->filhos[i]);
+            return pesquisaSequencial(key, tree->filhos[i]);
     }
 
     return 0;
@@ -104,6 +105,7 @@ static NodeB * split_pag(NodeB *pai, int posF_cheio){
     pag_dir->eh_no_folha = pag_esq->eh_no_folha; 
 
     pag_dir->nro_chaves = round((N - 1) / 2);
+    
     pag_esq->nro_chaves = (N - 1) / 2;
 
     for (i = 0; i < pag_dir->nro_chaves; i++)
@@ -178,3 +180,38 @@ NodeB * inserir(NodeB *tree, int key){
 
     return tree;
 }
+
+
+int altura_B(NodeB *tree){
+    NodeB *aux = tree;
+    int altura = -1;
+    
+    while (aux != NULL){
+        altura++;
+        
+        aux = aux->filhos[0];
+    }
+    
+    return altura;
+}
+
+
+
+int main() {
+    int i, n, x;
+    NodeB *tree = criar();
+    
+    scanf("%d", &n);
+    
+    for (i = 0; i < n; i++){
+        scanf("%d", &x);
+        
+        tree = inserir(tree, x);
+    }
+    
+    printf("%d", altura_B(tree));
+    
+    return 0;
+}
+
+

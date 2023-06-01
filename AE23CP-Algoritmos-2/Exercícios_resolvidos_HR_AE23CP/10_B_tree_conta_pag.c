@@ -2,6 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
+
 #define N 5
 
 typedef struct NodeB NodeB;
@@ -70,10 +71,10 @@ int pesquisaSequencial(int key, NodeB *tree){
     if (tree != NULL){
         for (i = 0; i < tree->nro_chaves && key < tree->chaves[i]; i++);
 
-	if ((i < tree->nro_chaves) && (key == tree->chaves[i]))
-        	return 1;
+    if ((i < tree->nro_chaves) && (key == tree->chaves[i]))
+            return 1;
         else
-        	return pesquisaSequencial(key, tree->filhos[i]);
+            return pesquisaSequencial(key, tree->filhos[i]);
     }
 
     return 0;
@@ -112,6 +113,7 @@ static NodeB * split_pag(NodeB *pai, int posF_cheio){
     if (!pag_esq->eh_no_folha)
         for (i = 0; i < pag_dir->nro_chaves; i++)
             pag_dir->filhos[i] = pag_esq->filhos[i + pag_esq->nro_chaves];
+
 
     for (i = pai->nro_chaves + 1; i > posF_cheio + 1; i--)
         pai->filhos[i + 1] = pai->filhos[i];
@@ -178,3 +180,44 @@ NodeB * inserir(NodeB *tree, int key){
 
     return tree;
 }
+
+
+void conta_pag(NodeB *tree, int *contador){
+    int i;
+    
+    if (tree != NULL){
+        *contador = *contador + 1;
+        
+        if (tree->filhos[0] != NULL){
+            if (tree->filhos[0]->eh_no_folha)
+                *contador = *contador + tree->nro_chaves + 1;
+            else
+                for (i = 0; i <= tree->nro_chaves; i++)
+                    conta_pag(tree->filhos[i], contador);
+        }
+    }
+}
+
+
+
+int main() {
+    int i, n, x;
+    NodeB *tree = criar();
+    
+    scanf("%d", &n);
+    
+    for (i = 0; i < n; i++){
+        scanf("%d", &x);
+        
+        tree = inserir(tree, x);
+    }
+    
+    x = 0;
+    
+    conta_pag(tree, &x);
+    
+    printf("%d", x);
+    
+    return 0;
+}
+
