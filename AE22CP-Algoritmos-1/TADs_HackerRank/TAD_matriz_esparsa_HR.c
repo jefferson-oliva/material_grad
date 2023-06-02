@@ -94,7 +94,7 @@ int buscar_pos(int l, int c, Spa_Mat* mat){
     if ((mat != NULL) && validar_pos_matriz(l, c, mat)){
         aux = mat->lin[l]->head;
 
-        while ((aux != NULL) && (c < aux->col))
+        while ((aux != NULL) && (c > aux->col))
             aux = aux->next;
 
         if ((aux != NULL) && (c == aux->col))

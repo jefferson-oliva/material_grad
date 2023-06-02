@@ -106,7 +106,7 @@ void alterar(unsigned int item, int l, int c, Spa_Mat* mat){
         auxLA = NULL;
         auxLP = mat->lin[l]->head;
 
-        while ((auxLP != NULL) && (auxLP->col < c)){
+        while ((auxLP != NULL) && (auxLP->col > c)){
             auxLA = auxLP;
             auxLP = auxLP->next;
         }

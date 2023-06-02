@@ -13,5 +13,5 @@ int buscar(int item, Spa_Mat* mat);
 
 int buscar_pos(int l, int c, Spa_Mat* mat);
 
-void alterar(int item, int l, int c, Spa_Mat* mat);
+void trocar(int item, int l, int c, Spa_Mat* mat);
 

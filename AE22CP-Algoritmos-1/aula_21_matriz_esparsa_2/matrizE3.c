@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "matriz_esparsa.h"
+#include "matrizE3.h"
 
 struct Cell{
         int item;
@@ -9,30 +9,19 @@ struct Cell{
 };
 
 
-struct ListaE{
-        Cell *head;
-};
-
-
 struct Spa_Mat{
        int n_lin;
        int n_col;
-       ListaE **lin;
+       Cell **lin;
 };
 
 
 Spa_Mat* criar(int l, int c){
         Spa_Mat* mat = (Spa_Mat*) malloc(sizeof(Spa_Mat));
-        int i;
 
         mat->n_col = c;
         mat->n_lin = l;
-        mat->lin = (ListaE**) malloc(sizeof(ListaE*) * l);
-
-        for (i = 0; i < l; i++){
-                mat->lin[i] = (ListaE*) malloc(sizeof(ListaE));
-                mat->lin[i]->head = NULL;
-        }
+        mat->lin = (Cell**) calloc(l, sizeof(Cell*));
 
         return mat;
 }
@@ -48,31 +37,23 @@ Cell* criar_celula(int item, int col){
 }
 
 
-static int procurar_lista(int item, ListaE *l){
-        Cell *aux;
-
-        if (l != NULL){
-                aux = l->head;
-
-                while ((aux != NULL) && (aux->item != item))
-                	aux = aux->next;
-        }
-
-        if ((aux != NULL) && (aux->item == item))
-                return 1;
-        else
-                return 0;
-}
-
-
 int buscar(int item, Spa_Mat* mat){
-        int i;
-        int aux = 0;
+    int i;
+    Cell *aux;
 
-        for (i = 0; (i < mat->n_lin) && (aux == 0); i++)
-                aux = procurar_lista(item, mat->lin[i]);
+    if (mat != NULL){
+        for (i = 0; i < mat->n_lin; i++){
+            aux = mat->lin[i];
 
-        return aux;
+            while ((aux != NULL) && (aux->item != item))
+                aux = aux->next;
+
+            if ((aux != NULL) && (aux->item == item))
+                return 1;
+        }
+    }
+
+    return 0;
 }
 
 
@@ -83,12 +64,11 @@ static int validar_pos_matriz(int lin, int col, Spa_Mat* mat){
 
 // Se existir elemento na posição [l][c], retorne o valor. Caso contrário, retorne 0 (nulo)
 int buscar_pos(int l, int c, Spa_Mat* mat){
-    int i;
     Cell *aux;
     int valor = 0;
 
     if ((mat != NULL) && validar_pos_matriz(l, c, mat)){
-        aux = mat->lin[l]->head;
+        aux = mat->lin[l];
 
         while ((aux != NULL) && (c > aux->col))
             aux = aux->next;
@@ -104,22 +84,22 @@ int buscar_pos(int l, int c, Spa_Mat* mat){
 // Esta função só é chamada quando item > 0
 // Caso a célula com coluna col exista, basta mudar o seu respectivo valor. Caso contrário,
 // deve ser criada uma nova célula
-static void trocar_inserir_na_lista(int item, int col, ListaE *l){
+static Cell* trocar_inserir_na_linha(int item, int col, Cell *c){
     Cell *auxA, *auxP, *novo;
-    
-    // Verificar se a lista da matriz tem a cabeça vazia ou a coluna em que a coluna em que 
+
+    // Verificar se a lista da matriz tem a cabeça vazia ou a coluna em que a coluna em que
     // haverá inserção é menor em comparação com a da primeira célula da lista.
     // Caso esse teste retornar verdadeiro, a célula será inserida na primeira posição da lista.
-    if ((l->head == NULL) || (col < l->head->col)){
+    if ((c == NULL) || (col < c->col)){
         novo = criar_celula(item, col);
-        novo->next = l->head;
-        l->head = novo;
+        novo->next = c;
+        c = novo;
     // Se a lista não estiver vazia, é verificado se o seu primeiro elemento tem a coluna igual
-    // a col. Caso positivo, apenas o valor da célula é trocado 
-    }else if (col == l->head->col){
-        l->head->item = item;
+    // a col. Caso positivo, apenas o valor da célula é trocado
+    }else if (col == c->col){
+        c->item = item;
     }else{
-        auxA = l->head; // a nova célula deverá ser colocada entre auxP e auxA
+        auxA = c; // a nova célula deverá ser colocada entre auxP e auxA
         auxP = auxA;
 
         // Encontrar uma posição adequada para inserção/troca
@@ -127,7 +107,7 @@ static void trocar_inserir_na_lista(int item, int col, ListaE *l){
             auxA = auxP;
             auxP = auxP->next;
         }
-        
+
         // Se a coluna col existir, basta trocar o valor de item
         if ((auxP != NULL) && (col == auxP->col))
             auxP->item = item;
@@ -138,22 +118,24 @@ static void trocar_inserir_na_lista(int item, int col, ListaE *l){
             auxA->next = novo;
         }
     }
+
+    return c;
 }
 
 
 // Esta função só é chamada quando item <= 0
 // Caso a célula com coluna col exista, basta remover a céluna. Caso contrário, nada é feito.
-static void remover_na_lista(int col, ListaE *l){
+static Cell* remover_na_linha(int col, Cell *c){
     Cell *auxA, *auxP = NULL;
-    
-    if (l->head != NULL){
+
+    if (c != NULL){
     	// Verificar se a célula que deverá ser removida é o primeiro elemento da lista.
-        if (col == l->head->col){
-            auxP = l->head;
-            l->head = l->head->next;
+        if (col == c->col){
+            auxP = c;
+            c = c->next;
             free(auxP);
         }else{
-            auxA = l->head;
+            auxA = c;
             auxP = auxA; // Se for feita a remoção, auxP será removida e auxA->next = auxP->next
 
             // Encontrar uma posição adequada para remoção
@@ -161,7 +143,7 @@ static void remover_na_lista(int col, ListaE *l){
                 auxA = auxP;
                 auxP = auxP->next;
             }
-            
+
             if ((auxP != NULL) && (col == auxP->col)){
                 auxA->next = auxP->next;
 
@@ -169,6 +151,8 @@ static void remover_na_lista(int col, ListaE *l){
             }
         }
     }
+
+    return c;
 }
 
 
@@ -176,13 +160,13 @@ static void remover_na_lista(int col, ListaE *l){
 // cenários:
 // 1 - Se a coluna existir na l-ésima lista, a sua respectiva célula terá o seu valor alterado.
 // 2 - Caso contrário, uma nova célula deverá ser criada e inserida de forma ordenada (por coluna)
-//     na l-ésima lista 
+//     na l-ésima lista
 void trocar(int item, int l, int c, Spa_Mat* mat){
     if (validar_pos_matriz(l, c, mat)){
         if (item > 0)
-            trocar_inserir_na_lista(item, c, mat->lin[l]);
+            mat->lin[l] = trocar_inserir_na_linha(item, c, mat->lin[l]);
         else
-            remover_na_lista(c, mat->lin[l]);
+            mat->lin[l] = remover_na_linha(c, mat->lin[l]);
     }
 }
 
@@ -192,7 +176,7 @@ void imprimir(Spa_Mat* mat){
     Cell* aux;
 
     for (i = 0; i < mat->n_lin; i++){
-        aux = mat->lin[i]->head;
+        aux = mat->lin[i];
         j = 0;
 
         while (aux != NULL){
