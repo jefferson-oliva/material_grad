@@ -1,7 +1,5 @@
 typedef struct Cell Cell;
 
-typedef struct ListaE ListaE;
-
 typedef struct Spa_Mat Spa_Mat;
 
 
