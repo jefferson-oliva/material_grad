@@ -23,12 +23,22 @@ Lista* criar_lista(){
 
 
 int lista_vazia(Lista *l){
-    return (l == NULL) || (l->tam == 0);
+    if (l == NULL)
+        return -1;
+    else if (l->tam > 0)
+        return 0;
+    else
+        return 1;
 }
 
 
 int lista_cheia(Lista *l){
-    return (l != NULL) && (l->tam == MAX_SIZE);
+    if (l == NULL)
+        return -1;
+    else if (l->tam < MAX_SIZE)
+        return 0;
+    else
+        return 1;
 }
 
 
@@ -82,49 +92,4 @@ void imprimir_lista(Lista *l){
 
         printf("\n");
     }
-}
-
-
-int liberar_lista(Lista *l){
-    if (l != NULL){
-        free(l);
-
-        return 1;
-    }
-
-    return 0;
-}
-
-void inverter(Lista* l){
-    int i, j, aux;
-    
-    if (!lista_vazia(l))
-        for (i = 0, j = l->tam - 1; i < j; i++, j--){
-            aux = l->item[i];
-            l->item[i] = l->item[j];
-            l->item[j] = aux;
-        }
-}
-
-
-int main() {
-    int aux;
-    Lista *l1 = criar_lista();
-    
-    aux = 0;
-        
-    while (aux != -1){
-        scanf("%d ", &aux);
-        
-        if (aux != -1)
-            inserir(l1, aux);
-    }
-    
-    inverter(l1);
-        
-    imprimir_lista(l1);
-        
-    liberar_lista(l1);
-       
-    return 0;
 }

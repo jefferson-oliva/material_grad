@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define TAM_MAX 100
+#define TAM_MAX 10
 
 typedef struct Fila Fila;
 
@@ -117,48 +117,21 @@ int tamanho_fila(Fila *f){
     if (f != NULL)
         return f->tam;
     else
-        return 0;
+    	return 0;
 }
 
 
-void divisao_intercalada(Fila *f1, Fila *f2, Fila *f3){
-    if (f2 == NULL)
-        f2 = criar_fila();
-    if (f3 == NULL)
-        f3 = criar_fila();
-    
-    if (!fila_vazia(f1) && fila_vazia(f2) && fila_vazia(f3)){
-        while (!fila_vazia(f1)){
-            enfileirar(f2, desenfileirar(f1));
-            
-            if (!fila_vazia(f1))
-                enfileirar(f3, desenfileirar(f1));
-        }
-    }
+int verificar_inicio(Fila *f){
+    if (!fila_vazia(f))
+        return f->item[f->ini];
+    else
+        return INT_MIN;
 }
 
 
-int main() {
-    int item = 0;
-    Fila *f1 = criar_fila();
-    Fila *f2 = criar_fila();
-    Fila *f3 = criar_fila();
-    
-    while (item != -1){
-        scanf("%d", &item);
-        
-        if (item > 0)
-            enfileirar(f1, item);
-    }
-    
-    divisao_intercalada(f1, f2, f3);
-    
-    imprimir_fila(f2);
-    imprimir_fila(f3);
-    
-    liberar_fila(f1);
-    liberar_fila(f2);
-    liberar_fila(f3);
-    
-    return 0;
+int verificar_fim(Fila *f){
+    if (!fila_vazia(f))
+        return f->item[f->fim];
+    else
+        return INT_MIN;
 }

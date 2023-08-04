@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-#include <limits.h>
-
 #define TAM_MAX 100
 
 typedef struct PilhaC PilhaC;
@@ -93,53 +87,3 @@ int obter_posicao_topo(PilhaC *p){
     else
         return -1;
 }
-
-
-int valida_parenteses(char *s){
-    PilhaC *p = criar_pilha();
-    int i, vdd = 1;
-    
-    for (i = 0; (i < strlen(s)) && vdd; i++){
-        if (s[i] == '(')
-            empilhar(p, s[i]);
-        else if (s[i] == ')'){
-            if (!pilha_vazia(p))
-                desempilhar(p);
-            else
-                vdd = 0;
-        }
-    }
-    
-    if ((vdd == 1) && !pilha_vazia(p))
-        vdd = 0;
-    
-    liberar_pilha(p);
-    
-    return vdd;
-}
-
-
-int main() {
-    char *str;
-    int i, n,  res;
-    
-    scanf("%d", &n);
-    
-    for (i = 0; i < n; i++){
-        str = (char*) malloc(sizeof(char) * 20);
-        
-        scanf("%s", str);
-        
-        res = valida_parenteses(str);
-        
-        if (res == 1)
-            printf("correct\n");
-        else
-            printf("incorrect\n");
-        
-        free(str);
-    }
-    
-    return 0;
-}
-

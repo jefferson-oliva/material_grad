@@ -26,7 +26,7 @@ Pilha* criar_pilha(){
 int pilha_cheia(Pilha *p){
     if (p == NULL)
         return -1;
-    else if (p->topo == (TAM_MAX - 1))
+    else if (p->topo >= (TAM_MAX - 1))
         return 1;
     else
         return 0;
@@ -36,7 +36,7 @@ int pilha_cheia(Pilha *p){
 int pilha_vazia(Pilha *p){
     if (p == NULL)
         return -1;
-    else if (p->topo == -1)
+    else if (p->topo < 0)
         return 1;
     else
         return 0;
@@ -97,30 +97,9 @@ int obter_posicao_topo(Pilha *p){
         return -1;
 }
 
-
-Pilha* dec2oct(int x){
-    Pilha *p = criar_pilha();
-    
-    do{
-        empilhar(p, x % 8);
-        x /= 8;
-    }while(x != 0);
-    
-    return p;
-}
-
-int main() {
-    int i, x, n;
-    Pilha *p;
-    
-    scanf("%d", &n);
-    
-    for (i = 0; i < n; i++){
-        scanf("%d", &x);
-        p = dec2oct(x);
-        imprimir_pilha(p);
-        liberar_pilha(p);
-    }
-    
-    return 0;
+int acessar_valor_topo(Pilha *p){
+    if (!pilha_vazia(p))
+        return p->item[p->topo];
+    else
+        return INT_MIN;
 }

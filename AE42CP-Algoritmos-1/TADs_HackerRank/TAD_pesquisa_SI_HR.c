@@ -51,28 +51,3 @@ void imprimir(Arq_Seq_In* arqSI){
             printf("%d: %d\n", arqSI->index[i].pos_arq, arqSI->index[i].chave);
     }
 }
-
-
-int main() {
-    int i, n, t;
-    int *v;
-    Arq_Seq_In *arqSI;
-    
-    scanf("%d", &t);
-    scanf("%d", &n);
-    
-    v = malloc(sizeof(int) * n);
-    
-    for (i = 0; i < n; i++)
-        scanf("%d", &v[i]);
-    
-    arqSI = criar_arq_seq_ind(t, v, n);
-    
-    imprimir(arqSI);
-    
-    free(v);
-    free(arqSI);
- 
-    return 0;
-}
-
