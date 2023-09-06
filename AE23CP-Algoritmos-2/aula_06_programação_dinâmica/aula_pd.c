@@ -6,7 +6,7 @@
 int f[MAX];
 
 
-// Sequência de Fibonacci por divisão e conquista
+// Sequência de Fibonacci recursiva
 int fib(int n){
     if (n <= 0)
         return 0;
