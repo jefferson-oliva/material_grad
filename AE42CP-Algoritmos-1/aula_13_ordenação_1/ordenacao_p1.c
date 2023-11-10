@@ -44,9 +44,11 @@ void selectsort(int v[], int n){
 			if (v[j] > v[p])
 				p = j;
 		
-		aux = v[i];
-		v[i] = v[p];
-		v[p] = aux;
+		if (p != i){
+			aux = v[i];
+			v[i] = v[p];
+			v[p] = aux;
+		}
 	}
 }
 
@@ -74,7 +76,7 @@ void selectsort2(int v[], int n){
 
 // Implementação do método insertion sort
 void insertsort(int v[], int n){
-	int i, x;
+	int i, j, x;
 
 	for (i = 1; i < n; i++){
 		x = v[i];
