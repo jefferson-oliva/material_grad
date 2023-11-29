@@ -3,7 +3,12 @@
 #include <string.h>
 #include <limits.h>
 
-// Exemplo de algoritmo de ordenação linear
+/* Exemplo de algoritmo de ordenação linear, onde:
+- A é o arranjo a ser ordenado
+- B é o arranjo onde os dados de A estarão ordenados
+- n é a quantidade de elementos em A e B
+- k é o valor máximo de A
+*/
 void counting_sort(int *A, int *B, int n, int k){
     int i, j, C[k + 1];
 
@@ -21,7 +26,7 @@ void counting_sort(int *A, int *B, int n, int k){
         C[i] += C[i - 1];
 
     for (j = n - 1; j >= 0; j--){
-    	
+    	// C[A[j]] - 1 indica onde A[j] deve ser inserido 
         B[C[A[j]] - 1] = A[j];
         C[A[j]]--; // caso houver chave repetida, ela virá uma posição antes
     }
