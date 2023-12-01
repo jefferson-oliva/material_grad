@@ -80,25 +80,25 @@ void bubblesort(char **vstr, int n){
 void quicksort(char **vstr, int n_cima, int n_baixo){
     int i = n_cima, j = n_baixo;
     char *pivo = vstr[(i + j) / 2];
-
+    
     do{
-        while ((comparar(vstr[i], pivo) < 0) && (i < j))
+        while(comparar(vstr[i], pivo) < 0){
             i++;
-
-        while ((comparar(vstr[j], pivo) > 0) && (j > i))
+        }
+        while(comparar(vstr[j], pivo) > 0){
             j--;
-
-        if (i <= j){
+        }
+        if(i <= j){
             troca(vstr, i, j);
             i++;
             j--;
         }
     }while (i <= j);
-
-	if (j > n_cima)
-		quicksort(vstr, n_cima, j);
-	if (i < n_baixo)
-		quicksort(vstr, i, n_baixo);
+        
+    if(j > n_cima)
+        quicksort(vstr, n_cima, j);
+    if(i < n_baixo)
+        quicksort(vstr, i, n_baixo);
 }
 
 
