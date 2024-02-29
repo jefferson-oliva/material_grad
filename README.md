@@ -3,8 +3,13 @@ Material para as disciplinas de graduação da Universidade Tecnológica Federal
 
 Atualmente, esses materiais são dedicados ao curso de Engenharia de Computação.
 
-A seguir têm dois links com exercícios práticos de programação abertos ao público em geral. Esses exercícios foram propostos no HackerRank, onde os programadores devem submeter soluções na linguagem. Alguns desses exercícios são resolvidos durante as aulas práticas. Cada um desses links é referente a uma disciplina de algoritmos (em edição):
+A seguir tem pelo menos um link com exercícios práticos de algoritmos abertos ao público em geral. Esses exercícios foram propostos no HackerRank, onde os programadores devem submeter soluções na linguagem C. Alguns desses exercícios serão resolvidos durante as aulas práticas:
 
-- Algoritmos e Estrutura de Dados I: https://www.hackerrank.com/ae22cp-utfpr-pb
+- Algoritmos e Estrutura de Dados II (AE43CP): https://www.hackerrank.com/ae43cp-utfpr-pb
 
-- Algoritmos e Estrutura de Dados II: https://www.hackerrank.com/ae23cp-utfpr-pb
+
+Listas de exercícios de algoritmos da grade antiga de Engenharia de Computação, UTFPR:
+
+- Algoritmos e Estrutura de Dados I (AE22CP): https://www.hackerrank.com/ae22cp-utfpr-pb
+
+- Algoritmos e Estrutura de Dados II (A23CP): https://www.hackerrank.com/ae23cp-utfpr-pb
