@@ -21,7 +21,7 @@ NodeB* criar(){
     for (i = 0; i < N; i++)
         tree->filhos[i] = NULL;*/
         
-    NodeB *tree = (NodeB *) calloc(sizeof(NodeB));
+    NodeB *tree = (NodeB *) calloc(sizeof(NodeB), 1);
     int i;
 
     tree->eh_no_folha = 1;
