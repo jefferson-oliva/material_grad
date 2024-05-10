@@ -44,7 +44,7 @@ int mochila_g(int custo[], int peso[], int n, int capacidade){
      int i = 0;
      float valor = 0;
      
-     while ((i < n) && (peso[i] <= b)){
+     while ((i < n) && (peso[i] <= capacidade)){
           valor += custo[i];
           capacidade -= peso[i];
           i++;

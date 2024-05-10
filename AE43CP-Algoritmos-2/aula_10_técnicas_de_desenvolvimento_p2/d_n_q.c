@@ -21,9 +21,9 @@ int maxDQ(int v[], int ini, int fim){
         m = (ini + fim) / 2;
         a = maxDQ(v, ini, m);
         b = maxDQ(v, m + 1, fim);
+        
+        return max(a, b);
     }
-
-    return max(a, b);
 }
 
 
