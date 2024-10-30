@@ -79,9 +79,6 @@ void inserir_primeiro(int key, ListaE *l){
 void inserir_ultimo(int key, ListaE *l){
     Cell *aux, *novo;
     
-    if (l == NULL)
-        l = criar_listaE();
-
     if (listaE_vazia(l))
         inserir_primeiro(key, l);
     else{
@@ -116,8 +113,7 @@ int remover(int key, ListaE *l){
         }
 
         if (auxA != NULL){
-            if (auxP != NULL)
-                auxP->next = auxA->next;
+            auxP->next = auxA->next;
 
             free(auxA);
 

@@ -96,11 +96,6 @@ void inserir_ultimo(int key, ListaE *l){
     Cell *aux, *nova; // célula auxiliar e nova,
                       // respectivamente
 
-    // Caso a lista encadeada seja nula,
-    // alocar um espaço para essa estrutura
-    if (l == NULL)
-        l = criar_listaE();
-
     // Se a lista estiver vazia, não faz sentido
     // percorrê-la
     if (listaE_vazia(l))
@@ -126,11 +121,8 @@ void inserir_ultimo(int key, ListaE *l){
 void inserir_ordenado(int key, ListaE *l){
     Cell *auxA, *auxP, *nova; // células auxiliares
     
-    // Caso a lista encadeada seja nula,
-    // alocar um espaço para essa estrutura
-    if (l == NULL)
-        l = criar_listaE();
-
+    // Se a lista estiver vazia, não faz sentido
+    // percorrê-la
     if (listaE_vazia(l))
         inserir_primeiro(key, l);
     else{
@@ -196,10 +188,7 @@ int remover(int key, ListaE *l){
             // Caso a chave seja encontrada, ou seja, auxA diferente de
             // nulo, fazer a célula predecessora (auxP) apontar o ponteiro
             // "next" para o próximo elemento de auxA.
-            // Esta comparação é necessária, pois o elemento a ser removido
-            // pode ser a primeira célula da lista, na qual auxP == NULL
-            if (auxP != NULL)
-            	auxP->next = auxA->next; // funciona mesmo se auxP for igual a auxA
+            auxP->next = auxA->next;
 
             // Agora, a célula auxA pode ser removida com segurança
             free(auxA);

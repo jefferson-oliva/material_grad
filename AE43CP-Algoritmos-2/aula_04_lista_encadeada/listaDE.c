@@ -102,11 +102,6 @@ void inserir_ultimo(int key, ListaDE *l){
     CellDE *aux, *nova; // célula auxiliar e nova,
                       // respectivamente
 
-    // Caso a lista encadeada seja nula,
-    // alocar um espaço para essa estrutura
-    if (l == NULL)
-        l = criar_ListaDE();
-
     // Se a lista estiver vazia, não faz sentido
     // percorrê-la
     if (ListaDE_vazia(l))
@@ -132,11 +127,6 @@ void inserir_ultimo(int key, ListaDE *l){
 
 void inserir_ordenado(int key, ListaDE *l){
     CellDE *auxA, *auxP, *nova; // células auxiliares
-
-    // Caso a lista encadeada seja nula,
-    // alocar um espaço para essa estrutura
-    if (l == NULL)
-        l = criar_ListaDE();
 
     if (ListaDE_vazia(l))
         inserir_primeiro(key, l);
