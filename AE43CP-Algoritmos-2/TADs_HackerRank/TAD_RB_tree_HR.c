@@ -118,7 +118,7 @@ static NodeVP* rotacionar_dir_esq(NodeVP *x){
     NodeVP *a = p->father;
     
     x->father = a;
-    a->left = x;
+    a->right = x;
     p->left = x->right;
     x->right = p;
     p->father = x;
