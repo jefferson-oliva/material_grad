@@ -44,7 +44,7 @@ int buscar(int key, HashT *t){
         i = 1;
         rh = x;
 
-        while ((i < t->tam) && (t->buckets[rh] != key) && (t->buckets[rh] >= 0)){
+        while ((i < t->tam) && (t->buckets[rh] >= 0) && (t->buckets[rh] != key)){
             rh = overflow_prog(x, t->tam, i);
 
             i++;
@@ -52,8 +52,9 @@ int buscar(int key, HashT *t){
 
         if ((i < t->tam) && (t->buckets[rh] == key))
             return rh;
-    }else
-        return -1;
+    }
+    
+    return -1;
 }
 
 
@@ -72,7 +73,7 @@ int inserir(int key, HashT *t){
             i = 1;
             rh = x;
             
-            while ((i < t->tam) && (t->buckets[rh] != key) && (t->buckets[rh] > 0)){
+            while ((i < t->tam) && (t->buckets[rh] > 0) && (t->buckets[rh] != key)){
                 rh = overflow_prog(x, t->tam, i);
 
                 i++;

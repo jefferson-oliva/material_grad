@@ -64,7 +64,7 @@ int buscar(int key, HashT *t){
         2: a chave foi encontrada (t->buckets[rh] == key)
         3: uma posição vazia é encontrada (t->buckets[rh] == -1)
         */
-        while ((i < t->tam) && (t->buckets[rh] != key) && (t->buckets[rh] >= 0)){
+        while ((i < t->tam) && (t->buckets[rh] >= 0) && (t->buckets[rh] != key)){
             rh = overflow_prog(x, t->tam, i); // aplicar a função rehash
 
             i++; // atualizar a tentativa
@@ -74,8 +74,9 @@ int buscar(int key, HashT *t){
         // e o bucket na posição rh não  vazio (chave maior que -1)
         if ((i < t->tam) && (t->buckets[rh] == key))
             return rh;
-    }else
-        return -1;
+    }
+    
+    return -1;
 }
 
 //Antes
@@ -122,7 +123,7 @@ int inserir(int key, HashT *t){
             2: a chave foi encontrada (t->buckets[rh] == key): como a chave já existe, então não é feita a inserção
             3: uma posição vazia é encontrada (t->buckets[rh] == -1)
             */
-            while ((i < t->tam) && (t->buckets[rh] != key) && (t->buckets[rh] > 0)){
+            while ((i < t->tam) && (t->buckets[rh] > 0) && (t->buckets[rh] != key)){
                 rh = overflow_prog(x, t->tam, i); // aplicar a função rehash
 
                 i++; // atualizar a tentativa
