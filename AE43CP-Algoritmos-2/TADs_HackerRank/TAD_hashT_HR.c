@@ -114,7 +114,6 @@ void imprimir(HashT *t){
         for (i = 0; i < t->tam; i++)
             if (t->buckets[i] > 0)
                 printf("%d\n", t->buckets[i]);
-        }
     }
 }
 
