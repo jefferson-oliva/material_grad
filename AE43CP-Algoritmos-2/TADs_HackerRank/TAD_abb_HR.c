@@ -121,29 +121,29 @@ Node* remover(int item, Node* tree){
 
 
 void imprimirInfix(Node* tree){
-	if (tree != NULL){
-		imprimirInfix(tree->left);
-		printf("\n%i", tree->item);
-		imprimirInfix(tree->right);
-	}
+    if (tree != NULL){
+        imprimirInfix(tree->left);
+        printf("%i ", tree->item);
+        imprimirInfix(tree->right);
+    }
 }
 
 
 void imprimirPrefix(Node* tree){
-	if (tree != NULL){
-		printf("\n%i", tree->item);
-		imprimirPrefix(tree->left);
-		imprimirPrefix(tree->right);
-	}
+    if (tree != NULL){
+        printf("%i ", tree->item);
+        imprimirPrefix(tree->left);
+        imprimirPrefix(tree->right);
+    }
 }
 
 
 void imprimirPosfix(Node* tree){
-	if (tree != NULL){
-		imprimirPosfix(tree->left);
-		imprimirPosfix(tree->right);
-		printf("\n%i", tree->item);
-	}
+    if (tree != NULL){
+        imprimirPosfix(tree->left);
+        imprimirPosfix(tree->right);
+        printf("%i ", tree->item);
+    }
 }
 
 
