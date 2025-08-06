@@ -80,7 +80,7 @@ int remover(int key, HashT *t){
 
 
 /*
-Na disciplina de "Algoritmos e Estrutura de Dados I", a 
+Na disciplina de "Algoritmos e Estrutura de Dados 2 (AE43CP)", a 
 função de impressão de tabela hash tem a finalidade
 de ser utilizada nos exercícios de implementação sobre
 hashing
