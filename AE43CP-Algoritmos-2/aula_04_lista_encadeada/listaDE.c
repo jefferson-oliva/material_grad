@@ -133,11 +133,7 @@ void inserir_ordenado(int key, ListaDE *l){
     else{
         nova = criar_celulaDE(key);
 
-        // Verificar se a lista está vazia ou se o key é menor
-        // que o primeiro elemento.
-        if (l->head == NULL)
-            l->head = nova;
-        else if (key < l->head->item){
+        if (key < l->head->item){
             nova->next = l->head;
             l->head->previous = nova;
             l->head = nova;
