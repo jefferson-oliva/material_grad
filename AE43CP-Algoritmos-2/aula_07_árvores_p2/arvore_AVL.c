@@ -54,7 +54,7 @@ static Node* rotateL(Node *tree){
 
 		tree = auxB;
 	}
-	
+
 	return tree;
 }
 
@@ -91,7 +91,7 @@ static Node* rotateR(Node *tree){
 
 		tree = auxB;
 	}
-	
+
 	return tree;
 }
 
@@ -127,8 +127,6 @@ Node* inserir(Node* tree, int value, int *grown){
 
 	return tree;
 }
-
-
 
 
 static Node* rotateLRM(Node *tree, int *reduced){
