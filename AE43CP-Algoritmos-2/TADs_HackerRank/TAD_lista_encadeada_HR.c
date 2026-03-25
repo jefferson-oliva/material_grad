@@ -94,6 +94,33 @@ void inserir_ultimo(int key, ListaE *l){
 }
 
 
+void inserir_ordenado(int key, ListaE *l){
+    Cell *auxA, *auxP, *nova;
+    
+    if (listaE_vazia(l))
+        inserir_primeiro(key, l);
+    else{
+        nova = criar_celula(key);
+
+        if ((l->head == NULL) || (l->head->item <= key)){
+            nova->next = l->head;
+            l->head = nova;
+        }else{
+            auxP = auxA = l->head;
+
+            while((auxA != NULL) && (key > auxA->item)){
+                auxP = auxA;
+
+                auxA = auxA->next;
+            }
+
+            auxP->next = nova;
+            nova->next = auxA;
+        }
+    }
+}
+
+
 int remover(int key, ListaE *l){
     Cell *auxA, *auxP = NULL;
 
